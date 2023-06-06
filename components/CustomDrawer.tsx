@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     logoText: {
         fontSize: 25,
         fontWeight: 'bold',
-        marginLeft: 10
+        marginLeft: 20
     },
     body: {
         paddingTop: 10,
@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     signOutText: {
-        paddingLeft: 10
+        paddingLeft: 25
     }
 });

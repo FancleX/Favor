@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Badge } from '@rneui/themed';
 import Home from './screen/Home';
 import Message from './screen/Message';
 import Account from './screen/Account';
@@ -11,6 +12,8 @@ import CustomDrawer from './components/CustomDrawer';
 import SearchHeader from './components/SearchHeader';
 
 const Drawer = createDrawerNavigator();
+
+const dummyMessageValue: number = 10;
 
 export default function App() {
   return (
@@ -39,7 +42,16 @@ export default function App() {
           component={Message}
           options={{
             drawerIcon: ({ color }) => (
-              <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
+              <>
+                <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
+                {dummyMessageValue > 0 &&
+                  <Badge
+                    status="error"
+                    value={10}
+                    containerStyle={{ position: 'absolute', top: 5, left: 20 }}
+                  />
+                }
+              </>
             ),
             header: () => <SearchHeader />
           }} />
@@ -70,6 +82,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   drawTextStyle: {
-    marginLeft: -20
+    marginLeft: -5
   }
 });
