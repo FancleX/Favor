@@ -27,6 +27,7 @@ export default function App() {
           drawerLabelStyle: styles.drawTextStyle
         }}
       >
+
         <Drawer.Screen
           name='Home'
           component={Home}
@@ -34,7 +35,7 @@ export default function App() {
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color} />
             ),
-            header: () => <SearchHeader />
+            header: ({ navigation }) => <SearchHeader placeholder='Search a category' navigation={navigation} />
           }} />
 
         <Drawer.Screen
@@ -44,7 +45,8 @@ export default function App() {
             drawerIcon: ({ color }) => (
               <>
                 <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
-                {dummyMessageValue > 0 &&
+                {
+                  dummyMessageValue > 0 &&
                   <Badge
                     status="error"
                     value={10}
@@ -53,7 +55,7 @@ export default function App() {
                 }
               </>
             ),
-            header: () => <SearchHeader />
+            header: ({ navigation }) => <SearchHeader placeholder='Search a conversation' navigation={navigation} />
           }} />
 
         <Drawer.Screen
@@ -70,17 +72,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    borderWidth: 5,
-    backgroundColor: 'grey'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   drawTextStyle: {
     marginLeft: -5
   }

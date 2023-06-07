@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default function Account() {
   return (
-    <View>
-      <Text>Account</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <Text>Account</Text>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});

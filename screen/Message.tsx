@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default function Message() {
   return (
-    <View>
-      <Text>Message</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <Text>Message</Text>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
