@@ -1,18 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Category from './Category';
+import Request from './Request';
+
+const Stack = createStackNavigator();
 
 export default function Home() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <Text>Home</Text>
-      </View>
+      <Stack.Navigator
+        initialRouteName='Category'
+        screenOptions={{ headerShown: false }}>
+
+        <Stack.Screen name='Category' component={Category} />
+        <Stack.Screen name='Request' component={Request} />
+      </Stack.Navigator>
     </TouchableWithoutFeedback>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});

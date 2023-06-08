@@ -4,16 +4,30 @@ import { StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Badge } from '@rneui/themed';
 import Home from './screen/Home';
 import Message from './screen/Message';
 import Account from './screen/Account';
 import CustomDrawer from './components/CustomDrawer';
 import SearchHeader from './components/SearchHeader';
+import Post from './screen/Post';
+import { CategoryType } from './screen/Category';
 
 const Drawer = createDrawerNavigator();
 
+// dummpy
+const searchApi = async (query: string): Promise<CategoryType | null> => {
+  const formatedQuery = query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
+
+  if (Object.values(CategoryType).includes(formatedQuery as CategoryType)) {
+    return formatedQuery as CategoryType;
+  }
+
+  return null;
+};
 const dummyMessageValue: number = 10;
+//
 
 export default function App() {
   return (
@@ -35,7 +49,21 @@ export default function App() {
             drawerIcon: ({ color }) => (
               <Ionicons name="home-outline" size={22} color={color} />
             ),
-            header: ({ navigation }) => <SearchHeader placeholder='Search a category' navigation={navigation} />
+            header: ({ navigation }) =>
+              <SearchHeader
+                searchFunc={searchApi}
+                placeholder='Search a category'
+                navigation={navigation}
+              />
+          }} />
+
+        <Drawer.Screen
+          name='Post'
+          component={Post}
+          options={{
+            drawerIcon: ({ color }) => (
+              <FontAwesome name="send-o" size={22} color={color} />
+            )
           }} />
 
         <Drawer.Screen
@@ -55,7 +83,12 @@ export default function App() {
                 }
               </>
             ),
-            header: ({ navigation }) => <SearchHeader placeholder='Search a conversation' navigation={navigation} />
+            header: ({ navigation }) =>
+              <SearchHeader
+                searchFunc={searchApi}
+                placeholder='Search a conversation'
+                navigation={navigation}
+              />
           }} />
 
         <Drawer.Screen
