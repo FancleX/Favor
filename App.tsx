@@ -6,28 +6,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Badge } from '@rneui/themed';
-import Home from './screen/Home';
-import Message from './screen/Message';
-import Account from './screen/Account';
+import Home from './screens/Home';
+import Message from './screens/Message';
+import Account from './screens/Account';
 import CustomDrawer from './components/CustomDrawer';
 import SearchHeader from './components/SearchHeader';
-import Post from './screen/Post';
-import { CategoryType } from './screen/Category';
+import Post from './screens/Post';
+import { MessageDrawer } from './dev/Dummy';
+import { RootNavParamList } from './navigation/Navigation';
 
-const Drawer = createDrawerNavigator();
-
-// dummpy
-const searchApi = async (query: string): Promise<CategoryType | null> => {
-  const formatedQuery = query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
-
-  if (Object.values(CategoryType).includes(formatedQuery as CategoryType)) {
-    return formatedQuery as CategoryType;
-  }
-
-  return null;
-};
-const dummyMessageValue: number = 10;
-//
+const Drawer = createDrawerNavigator<RootNavParamList>();
 
 export default function App() {
   return (
@@ -51,8 +39,8 @@ export default function App() {
             ),
             header: ({ navigation }) =>
               <SearchHeader
-                searchFunc={searchApi}
                 placeholder='Search a category'
+                type='Category'
                 navigation={navigation}
               />
           }} />
@@ -74,7 +62,7 @@ export default function App() {
               <>
                 <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
                 {
-                  dummyMessageValue > 0 &&
+                  MessageDrawer.messageNumber > 0 &&
                   <Badge
                     status="error"
                     value={10}
@@ -85,8 +73,8 @@ export default function App() {
             ),
             header: ({ navigation }) =>
               <SearchHeader
-                searchFunc={searchApi}
                 placeholder='Search a conversation'
+                type='Message'
                 navigation={navigation}
               />
           }} />

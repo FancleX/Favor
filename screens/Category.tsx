@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, ImageSourcePropType, FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootstackParamList } from '../navigation/Navigation';
+import { RootNavParamList } from '../navigation/Navigation';
 
 export enum CategoryType {
     BABYSITTING = 'Babysitting',
@@ -50,7 +50,7 @@ export default function Category() {
 
     const groupedCategoryItems: Category[][] = [];
 
-    const navigation = useNavigation<StackNavigationProp<RootstackParamList>>();
+    const navigation = useNavigation<StackNavigationProp<RootNavParamList>>();
 
     useEffect(() => {
         for (let i = 0; i < categories.length; i += 2) {

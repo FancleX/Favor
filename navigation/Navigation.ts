@@ -1,10 +1,10 @@
-import { CategoryType } from "../screen/Category"
+import { CategoryType } from "../screens/Category"
 
-export type RootstackParamList = {
-    Account: undefined,
-    Category: undefined,
-    Home: undefined,
-    Message: undefined,
-    Post: undefined,
-    Request: { categoryType: CategoryType }
+export type RootNavParamList = {
+    Account: undefined;
+    Category: undefined;
+    Home: undefined;
+    Message: undefined;
+    Post: undefined;
+    Request: { categoryType: CategoryType };
 }
