@@ -1,14 +1,28 @@
-import { Skeleton, } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
+import { Skeleton } from '@rneui/themed';
 import { VStack } from "react-native-flex-layout";
 import { LinearGradient } from 'expo-linear-gradient';
 
-<VStack spacing={4}>
-    <Skeleton animation="pulse" width={80} height={40} />
-    <Skeleton
-        LinearGradientComponent={LinearGradient}
-        animation="wave"
-        width={80}
-        height={40}
-    />
-    <Skeleton animation="none" width={80} height={40} />
-</VStack>
+export default function RequestCardSkeleton() {
+    return (
+        <VStack m={4} spacing={2}>
+            <Skeleton
+                LinearGradientComponent={LinearGradient}
+                animation="wave"
+                style={styles.skeleton}
+            />
+            <Skeleton
+                LinearGradientComponent={LinearGradient}
+                animation="wave"
+                style={styles.skeleton}
+            />
+        </VStack>
+    )
+}
+
+const styles = StyleSheet.create({
+    skeleton: {
+        width: '100%',
+        height: 300,
+    }
+});

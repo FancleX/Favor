@@ -7,22 +7,29 @@ import { FlatList } from 'react-native-gesture-handler';
 import { RequestDummyData } from '../dev/Dummy';
 import RequestCard, { RequestCardData } from '../components/RequestCard';
 import { Divider } from '@rneui/themed';
+import RequestCardSkeleton from '../skeletons/RequestCardSkeleton';
 
 interface Props extends StackScreenProps<RootNavParamList, 'Request'> { }
 
 export default function Request({ route }: Props) {
     const { categoryType } = route.params;
 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [requestData, setRequestData] = useState<RequestCardData[]>([]);
 
     useEffect(() => {
         // send request
-        RequestDummyData.getRequestData(categoryType).then((data) => {
-            if (data !== null) {
-                setRequestData(data);
-            }
-        });
-    }, [categoryType, requestData]);
+        setIsLoading(true);
+        RequestDummyData.getRequestData(categoryType)
+            .then((data) => {
+                if (data !== null) {
+                    setRequestData(data);
+                }
+            })
+            .catch((error) => console.log(error))
+            .finally(() => setIsLoading(false));
+
+    }, []);
 
     const onFilterSelectedHandler = (selectedItem: string, index: number) => {
         console.log(selectedItem + index)
@@ -37,13 +44,18 @@ export default function Request({ route }: Props) {
                     />
                 </View>
 
+                <Divider />
+
                 <View>
-                    <FlatList
-                        data={requestData}
-                        renderItem={RequestCard}
-                        keyExtractor={(item) => item.id}
-                        ItemSeparatorComponent={() => <Divider />}
-                    />
+                    {
+                        isLoading ? <RequestCardSkeleton />
+                            : <FlatList
+                                data={requestData}
+                                renderItem={({ item }) => <RequestCard {...item} />}
+                                keyExtractor={(item) => item.id}
+                                ItemSeparatorComponent={() => <Divider />}
+                            />
+                    }
                 </View>
             </View>
         </TouchableWithoutFeedback>
