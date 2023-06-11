@@ -13,7 +13,7 @@ import CustomDrawer from './components/CustomDrawer';
 import SearchHeader from './components/SearchHeader';
 import Post from './screens/Post';
 import { MessageDrawer } from './dev/Dummy';
-import { RootNavParamList } from './navigation/Navigation';
+import { RootNavParamList } from './types/Navigation';
 
 const Drawer = createDrawerNavigator<RootNavParamList>();
 

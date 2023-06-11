@@ -3,7 +3,7 @@ import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Category from './Category';
 import Request from './Request';
-import { RootNavParamList } from '../navigation/Navigation';
+import { RootNavParamList } from '../types/Navigation';
 
 const Stack = createStackNavigator<RootNavParamList>();
 

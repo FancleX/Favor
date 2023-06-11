@@ -1,4 +1,4 @@
-import { CategoryType } from "../screens/Category"
+import { CategoryType } from "../screens/Category";
 
 export type RootNavParamList = {
     Account: undefined;

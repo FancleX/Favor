@@ -1,36 +1,12 @@
-import { useState, useEffect } from 'react';
-import { CategoryType } from '../screens/Category'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar, HStack, VStack } from '@react-native-material/core';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { RequestCardData } from '../types/RequestCardData';
 
-export interface RequestCardData {
-    id: string,
-    poster: {
-        name: string,
-        avatar?: string,
-        phone?: number,
-        email: string
-    },
-    category: CategoryType,
-    address: {
-        location: string,
-        longitude: number,
-        latitude: number
-    },
-    postDate: Date,
-    description: string,
-    startTime?: Date,
-    endTime?: Date,
-    pay: number
-}
 
-interface Props extends RequestCardData {
-    currentGPS?: {
-        longitude: number,
-        latitude: number
-    }
+export interface RequestCardProps extends RequestCardData {
+    distance?: string,
+    timeGap: string
 }
 
 export default function RequestCard({
@@ -43,22 +19,8 @@ export default function RequestCard({
     startTime,
     endTime,
     pay,
-    currentGPS }: Props) {
-
-    const [distance, setDistance] = useState<number>(-1);
-    const [timeGap, setTimeGap] = useState<number>(-1);
-
-    useEffect(() => {
-        // calculate distance between currentGPS with address
-        setDistance(10);
-
-        // calculate time gap between now and post date
-        setTimeGap(30);
-    }, []);
-
-    const renderTimeGap = (): string => {
-        return `${timeGap}m`;
-    };
+    distance,
+    timeGap }: RequestCardProps) {
 
     const handleOnLongPress = () => {
         console.log(id)
@@ -81,18 +43,26 @@ export default function RequestCard({
 
                             <View style={styles.iconTextContainer}>
                                 <MaterialCommunityIcons style={styles.textIcon} name='clock-edit-outline' size={20} />
-                                <Text style={styles.subtext}>{renderTimeGap()}</Text>
+                                <Text style={styles.subtext}>{timeGap}</Text>
                             </View>
 
-                            {distance > 0 &&
+                            {distance &&
                                 <View style={styles.iconTextContainer}>
                                     <MaterialCommunityIcons style={styles.textIcon} name='map-marker-distance' size={20} />
-                                    <Text style={styles.subtext}>{distance > 1 ? `${distance} miles` : `${distance} mile`}</Text>
+                                    <Text style={styles.subtext}>{distance}</Text>
                                 </View>
                             }
                         </HStack>
 
-                        <Text>{description}</Text>
+                        <ScrollView style={{ width: '90%', maxHeight: 200 }}>
+                            <Text style={{ flex: 1 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                culpa qui officia deserunt mollit anim id est laborum.</Text>
+                        </ScrollView>
                     </VStack>
                 </View>
             </HStack>
@@ -103,7 +73,7 @@ export default function RequestCard({
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        minHeight: 300,
+        height: 300,
         marginVertical: 10,
         marginHorizontal: 20
     },
@@ -117,7 +87,7 @@ const styles = StyleSheet.create({
     iconTextContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginHorizontal: 10
+        marginHorizontal: 30
     },
     textIcon: {
         marginRight: 2
@@ -125,5 +95,8 @@ const styles = StyleSheet.create({
     subtext: {
         fontSize: 15
     },
+    descriptionContainer: {
+
+    }
 
 });

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, ImageSourcePropType, FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootNavParamList } from '../navigation/Navigation';
+import { RootNavParamList } from '../types/Navigation';
 
 export enum CategoryType {
     BABYSITTING = 'Babysitting',

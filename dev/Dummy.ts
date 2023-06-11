@@ -1,5 +1,5 @@
-import { RequestCardData } from "../components/RequestCard";
 import { CategoryType } from "../screens/Category";
+import { RequestCardData } from "../types/RequestCardData";
 
 
 export class MessageDrawer {
@@ -19,13 +19,13 @@ export class RequestDummyData {
             category: CategoryType.BABYSITTING,
             address: {
                 location: '399 Knickerbocker Ave, Brooklyn, NY 11237',
-                longitude: 40.7002053,
-                latitude: -73.9230049
+                latitude: 40.7002053,
+                longitude: -73.9230049
             },
-            postDate: new Date('June 6, 2023 14:24:00'),
+            postDate: new Date('2023-06-06T14:24:00'),
             description: 'Need a babysitter Friday 12:00 to 4:00 pm',
-            startTime: new Date('June 9, 2023 12:00:00'),
-            endTime: new Date('June 9, 2023 16:00:00'),
+            startTime: new Date('2023-06-09T12:00:00'),
+            endTime: new Date('2023-06-09T16:00:00'),
             pay: 100
         },
         {
@@ -37,13 +37,13 @@ export class RequestDummyData {
             category: CategoryType.BABYSITTING,
             address: {
                 location: 'South Side, Mt Vernon, NY',
-                longitude: 40.9059102,
-                latitude: -73.8340565
+                latitude: 40.9059102,
+                longitude: -73.8340565
             },
-            postDate: new Date('June 1, 2023 18:30:24'),
+            postDate: new Date('2023-06-01T18:30:24'),
             description: 'Need a babysitter to take my two babies',
-            startTime: new Date('June 4, 2023 09:00:00'),
-            endTime: new Date('June 4, 2023 13:00:00'),
+            startTime: new Date('2023-06-04T09:00:00'),
+            endTime: new Date('2023-06-04T13:00:00'),
             pay: 65
         },
         {
@@ -55,12 +55,12 @@ export class RequestDummyData {
             category: CategoryType.HOUSE_CLEANING,
             address: {
                 location: '25 52nd Rd, Queens, NY 11373',
-                longitude: 40.7333738,
-                latitude: -73.8920014
+                latitude: 40.7333738,
+                longitude: -73.8920014
             },
-            postDate: new Date('May 5, 2023 09:25:32'),
+            postDate: new Date('2023-05-05T09:25:32'),
             description: 'Need a house cleaner next week',
-            startTime: new Date('May 13, 2023 09:30:00'),
+            startTime: new Date('2023-05-13T09:30:00'),
             pay: 60
         },
         {
@@ -72,10 +72,10 @@ export class RequestDummyData {
             category: CategoryType.ITEM_REPAIRING,
             address: {
                 location: 'AXA Equitable Building, New York, NY 10019',
-                longitude: 40.7614408,
-                latitude: -73.9840294
+                latitude: 40.7614408,
+                longitude: -73.9840294
             },
-            postDate: new Date('May 25, 2023 08:56:23'),
+            postDate: new Date('2023-05-25T08:56:23'),
             description: 'My AC Unit does not blow cold, need a person to fix it as soon as possible!!!',
             pay: 150
         },
