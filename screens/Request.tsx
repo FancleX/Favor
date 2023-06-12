@@ -24,43 +24,44 @@ export default function Request({ route }: Props) {
         // enable loading ui
         setIsLoading(true);
 
-        // request current location
         getLocation()
-            .then((result) => {
-                if (result) {
-                    setCurrentLocation(result);
+            .then((location) => {
+                // get current location if available
+                if (location) {
+                    setCurrentLocation(location);
                 }
-            });
 
-        RequestDummyData.getRequestData(categoryType)
-            .then((data) => {
-                if (data !== null) {
-                    const cardList: RequestCardProps[] = [];
+                // fulfill card data
+                RequestDummyData.getRequestData(categoryType)
+                    .then((data) => {
+                        if (data !== null) {
+                            const cardList: RequestCardProps[] = [];
 
-                    data.map((item: RequestCardData) => {
-                        const cardData: RequestCardProps = { ...item, timeGap: '' };
+                            data.forEach((item) => {
+                                const cardData: RequestCardProps = { ...item, timeGap: '' };
 
-                        if (currentLocation) {
-                            // calculate distance between currentGPS with address
-                            const { latitude: lat1, longitude: lng1 } = item.address;
-                            const { latitude: lat2, longitude: lng2 } = currentLocation.coords;
+                                if (currentLocation) {
+                                    // calculate distance between currentGPS with address
+                                    const { latitude: lat1, longitude: lng1 } = item.address;
+                                    const { latitude: lat2, longitude: lng2 } = currentLocation.coords;
 
-                            cardData.distance =
-                                getDistanceDifferenceInMile({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 });
+                                    cardData.distance =
+                                        getDistanceDifferenceInMile({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 });
+                                }
+
+                                // calculate time gap between now and post date
+                                cardData.timeGap = getTimeGap(item.postDate, new Date());
+
+                                cardList.push(cardData);
+                            });
+
+                            setCardsData(cardList);
                         }
-
-                        // calculate time gap between now and post date
-                        cardData.timeGap = getTimeGap(item.postDate, new Date());
-
-                        cardList.push(cardData);
-                    });
-
-                    setCardsData(cardList);
-                }
-            })
-            .catch((error) =>
-                ToastAndroid.show(`Unable to fetch data: ${error}`, ToastAndroid.SHORT))
-            .finally(() => setIsLoading(false));
+                    })
+                    .catch((error) =>
+                        ToastAndroid.show(`Unable to fetch data: ${error}`, ToastAndroid.SHORT))
+                    .finally(() => setIsLoading(false));
+            });
 
     }, [currentLocation]);
 
