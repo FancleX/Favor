@@ -8,7 +8,6 @@ import { RequestDummyData } from '../dev/Dummy';
 import RequestCard, { RequestCardProps } from '../components/RequestCard';
 import { Divider } from '@rneui/themed';
 import RequestCardSkeleton from '../skeletons/RequestCardSkeleton';
-import { RequestCardData } from '../types/RequestCardData';
 import * as Location from 'expo-location';
 
 interface Props extends StackScreenProps<RootNavParamList, 'Request'> { }
@@ -76,7 +75,7 @@ export default function Request({ route }: Props) {
             return false;
         }
 
-        const location = await Location.getCurrentPositionAsync({});
+        const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low, timeInterval: 10000 });
         return location;
     };
 
@@ -102,7 +101,7 @@ export default function Request({ route }: Props) {
 
         const dist = earthRadiusInMiles * c;
 
-        return dist > 1 ? `${Math.floor(dist)} miles` : `${dist.toFixed(1)} mile`;
+        return dist > 1 ? `${Math.floor(dist)}mi` : `${dist.toFixed(1)}mi`;
     };
 
     const getTimeGap = (date1: Date, date2: Date): string => {
@@ -141,7 +140,7 @@ export default function Request({ route }: Props) {
 
                 <Divider />
 
-                <View>
+                <View style={{ flex: 1 }}>
                     {
                         isLoading ? <RequestCardSkeleton />
                             : <FlatList
@@ -149,6 +148,7 @@ export default function Request({ route }: Props) {
                                 renderItem={({ item }) => <RequestCard {...item} />}
                                 keyExtractor={(item) => item.id}
                                 ItemSeparatorComponent={() => <Divider />}
+                                contentContainerStyle={styles.contentContainer}
                             />
                     }
                 </View>
@@ -165,5 +165,8 @@ const styles = StyleSheet.create({
         margin: 10,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    contentContainer: {
+        marginHorizontal: 20
     },
 });

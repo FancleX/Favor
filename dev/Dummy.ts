@@ -41,7 +41,25 @@ export class RequestDummyData {
                 longitude: -73.8340565
             },
             postDate: new Date('2023-06-01T18:30:24'),
-            description: 'Need a babysitter to take my two babies',
+            description: `${'Need a babysitter to take my two babies'.repeat(10)}`,
+            startTime: new Date('2023-06-04T09:00:00'),
+            endTime: new Date('2023-06-04T13:00:00'),
+            pay: 65
+        },
+        {
+            id: 'ef23a8a10d09775abd28343e01b323adf',
+            poster: {
+                name: 'James Kite',
+                email: 'James@gmail.com'
+            },
+            category: CategoryType.BABYSITTING,
+            address: {
+                location: 'South Side, Mt Vernon, NY',
+                latitude: 40.9059102,
+                longitude: -73.8340565
+            },
+            postDate: new Date('2023-06-01T18:30:24'),
+            description: `${'Need a babysitter to take my two babies'}`,
             startTime: new Date('2023-06-04T09:00:00'),
             endTime: new Date('2023-06-04T13:00:00'),
             pay: 65
@@ -86,7 +104,7 @@ export class RequestDummyData {
 
         const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-        await sleep(3000);
+        await sleep(2000);
 
         for (const cardData of RequestDummyData.data) {
             if (cardData['category'] === categoryType) {
