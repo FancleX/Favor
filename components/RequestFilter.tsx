@@ -2,21 +2,20 @@ import { StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown';
 
-
-const filterOptions: string[] = [
-    'Latest Post',
-    'Highest Paid',
-    'Nearest to You'
-];
+export enum FilterOptions {
+    LATEST_POST = 'Latest Post',
+    HIGHEST_PAID = 'Highest Paid',
+    NEARST_LOCATION = 'Nearest to You'
+}
 
 interface Props {
-    onSelectedHandler(selectedItem: string, index: number): void;
+    onSelectedHandler(selectedItem: FilterOptions, index: number): void;
 }
 
 export default function RequestFilter({ onSelectedHandler }: Props) {
     return (
         <SelectDropdown
-            data={filterOptions}
+            data={Object.values(FilterOptions)}
             onSelect={onSelectedHandler}
             defaultButtonText={'Select a filter'}
             buttonTextAfterSelection={(selectedItem) => selectedItem}

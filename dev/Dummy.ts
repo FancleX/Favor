@@ -62,7 +62,7 @@ export class RequestDummyData {
             description: `${'Need a babysitter to take my two babies'}`,
             startTime: new Date('2023-06-04T09:00:00'),
             endTime: new Date('2023-06-04T13:00:00'),
-            pay: 65
+            pay: 140
         },
         {
             id: '9395d61e34338fdd04d04ffd916df681',
@@ -104,7 +104,7 @@ export class RequestDummyData {
 
         const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-        await sleep(2000);
+        await sleep(1000);
 
         for (const cardData of RequestDummyData.data) {
             if (cardData['category'] === categoryType) {

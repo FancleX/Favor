@@ -1,7 +1,7 @@
-import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, ToastAndroid } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootNavParamList } from '../types/Navigation';
-import RequestFilter from '../components/RequestFilter';
+import RequestFilter, { FilterOptions } from '../components/RequestFilter';
 import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { RequestDummyData } from '../dev/Dummy';
@@ -9,6 +9,7 @@ import RequestCard, { RequestCardProps } from '../components/RequestCard';
 import { Divider } from '@rneui/themed';
 import RequestCardSkeleton from '../skeletons/RequestCardSkeleton';
 import * as Location from 'expo-location';
+import Toast from 'react-native-root-toast';
 
 interface Props extends StackScreenProps<RootNavParamList, 'Request'> { }
 
@@ -17,7 +18,7 @@ export default function Request({ route }: Props) {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [cardsData, setCardsData] = useState<RequestCardProps[]>([]);
-    const [currentLocation, setCurrentLocation] = useState<Location.LocationObject>();
+    const [currentLocation, setCurrentLocation] = useState<Location.LocationObject | null>(null);
 
     useEffect(() => {
         // enable loading ui
@@ -29,7 +30,9 @@ export default function Request({ route }: Props) {
                 if (location) {
                     setCurrentLocation(location);
                 }
-
+            })
+            .catch((error) => console.log(error))
+            .finally(() => {
                 // fulfill card data
                 RequestDummyData.getRequestData(categoryType)
                     .then((data) => {
@@ -37,7 +40,7 @@ export default function Request({ route }: Props) {
                             const cardList: RequestCardProps[] = [];
 
                             data.forEach((item) => {
-                                const cardData: RequestCardProps = { ...item, timeGap: '' };
+                                const cardData: RequestCardProps = { ...item, timeGap: 0 };
 
                                 if (currentLocation) {
                                     // calculate distance between currentGPS with address
@@ -58,14 +61,32 @@ export default function Request({ route }: Props) {
                         }
                     })
                     .catch((error) =>
-                        ToastAndroid.show(`Unable to fetch data: ${error}`, ToastAndroid.SHORT))
+                        Toast.show(`Unable to fetch data: ${error}`, { duration: Toast.durations.SHORT }))
                     .finally(() => setIsLoading(false));
             });
 
     }, [currentLocation]);
 
-    const onFilterSelectedHandler = (selectedItem: string, index: number): void => {
-        console.log(selectedItem + index)
+    const onFilterSelectedHandler = (selectedFilter: FilterOptions): void => {
+        switch (selectedFilter) {
+            case FilterOptions.LATEST_POST:
+                cardsData.sort((a, b) => a.timeGap - b.timeGap);
+
+                break;
+            case FilterOptions.HIGHEST_PAID:
+                cardsData.sort((a, b) => b.pay - a.pay);
+                break;
+            case FilterOptions.NEARST_LOCATION:
+                cardsData.sort((a, b) => {
+                    if (a.distance && b.distance) {
+                        return a.distance - b.distance;
+                    }
+                    return 0;
+                });
+                break;
+        }
+
+        setCardsData([...cardsData]);
     };
 
     const getLocation = async (): Promise<Location.LocationObject | false> => {
@@ -79,7 +100,7 @@ export default function Request({ route }: Props) {
         return location;
     };
 
-    const getDistanceDifferenceInMile = (point1: { lat: number, lng: number }, point2: { lat: number, lng: number }): string => {
+    const getDistanceDifferenceInMile = (point1: { lat: number, lng: number }, point2: { lat: number, lng: number }): number => {
         const toRadians = (degrees: number) => {
             return degrees * (Math.PI / 180);
         };
@@ -101,32 +122,13 @@ export default function Request({ route }: Props) {
 
         const dist = earthRadiusInMiles * c;
 
-        return dist > 1 ? `${Math.floor(dist)}mi` : `${dist.toFixed(1)}mi`;
+        return dist;
     };
 
-    const getTimeGap = (date1: Date, date2: Date): string => {
+    const getTimeGap = (date1: Date, date2: Date): number => {
         const diff = Math.abs(date1.getTime() - date2.getTime());
 
-        const years = Math.round(diff / (1000 * 60 * 60 * 24 * 365));
-        const months = Math.round(diff / (1000 * 60 * 60 * 24 * 30));
-        const days = Math.round(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.round(diff / (1000 * 60 * 60));
-        const minutes = Math.round(diff / (1000 * 60));
-        const seconds = Math.round(diff / 1000);
-
-        if (years > 0) {
-            return `${years}yr`;
-        } else if (months > 0) {
-            return `${months}mo`;
-        } else if (days > 0) {
-            return `${days}d`;
-        } else if (hours > 0) {
-            return `${hours}h`;
-        } else if (minutes > 0) {
-            return `${minutes}m`;
-        } else {
-            return `${seconds}s`;
-        }
+        return diff;
     };
 
     return (

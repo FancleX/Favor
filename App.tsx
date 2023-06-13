@@ -14,81 +14,85 @@ import SearchHeader from './components/SearchHeader';
 import Post from './screens/Post';
 import { MessageDrawer } from './dev/Dummy';
 import { RootNavParamList } from './types/Navigation';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const Drawer = createDrawerNavigator<RootNavParamList>();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style='auto' />
-      <Drawer.Navigator
-        initialRouteName='Home'
-        drawerContent={(props) => <CustomDrawer {...props} />}
-        screenOptions={{
-          headerShown: true,
-          drawerLabelStyle: styles.drawTextStyle
-        }}
-      >
+    <RootSiblingParent>
+      <NavigationContainer>
+        <StatusBar style='auto' />
+        <Drawer.Navigator
+          initialRouteName='Home'
+          drawerContent={(props) => <CustomDrawer {...props} />}
+          screenOptions={{
+            headerShown: true,
+            drawerLabelStyle: styles.drawTextStyle
+          }}
+        >
 
-        <Drawer.Screen
-          name='Home'
-          component={Home}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="home-outline" size={22} color={color} />
-            ),
-            header: ({ navigation }) =>
-              <SearchHeader
-                placeholder='Search a category'
-                type='Category'
-                navigation={navigation}
-              />
-          }} />
+          <Drawer.Screen
+            name='Home'
+            component={Home}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Ionicons name="home-outline" size={22} color={color} />
+              ),
+              header: ({ navigation }) =>
+                <SearchHeader
+                  placeholder='Search a category'
+                  type='Category'
+                  navigation={navigation}
+                />
+            }} />
 
-        <Drawer.Screen
-          name='Post'
-          component={Post}
-          options={{
-            drawerIcon: ({ color }) => (
-              <FontAwesome name="send-o" size={22} color={color} />
-            )
-          }} />
+          <Drawer.Screen
+            name='Post'
+            component={Post}
+            options={{
+              drawerIcon: ({ color }) => (
+                <FontAwesome name="send-o" size={22} color={color} />
+              )
+            }} />
 
-        <Drawer.Screen
-          name='Message'
-          component={Message}
-          options={{
-            drawerIcon: ({ color }) => (
-              <>
-                <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
-                {
-                  MessageDrawer.messageNumber > 0 &&
-                  <Badge
-                    status="error"
-                    value={10}
-                    containerStyle={{ position: 'absolute', top: 5, left: 20 }}
-                  />
-                }
-              </>
-            ),
-            header: ({ navigation }) =>
-              <SearchHeader
-                placeholder='Search a conversation'
-                type='Message'
-                navigation={navigation}
-              />
-          }} />
+          <Drawer.Screen
+            name='Message'
+            component={Message}
+            options={{
+              drawerIcon: ({ color }) => (
+                <>
+                  <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
+                  {
+                    MessageDrawer.messageNumber > 0 &&
+                    <Badge
+                      status="error"
+                      value={10}
+                      containerStyle={{ position: 'absolute', top: 5, left: 20 }}
+                    />
+                  }
+                </>
+              ),
+              header: ({ navigation }) =>
+                <SearchHeader
+                  placeholder='Search a conversation'
+                  type='Message'
+                  navigation={navigation}
+                />
+            }} />
 
-        <Drawer.Screen
-          name='Account'
-          component={Account}
-          options={{
-            drawerIcon: ({ color }) => (
-              <Ionicons name="person-outline" size={22} color={color} />
-            )
-          }} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+          <Drawer.Screen
+            name='Account'
+            component={Account}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Ionicons name="person-outline" size={22} color={color} />
+              )
+            }} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </RootSiblingParent>
+
   );
 }
 

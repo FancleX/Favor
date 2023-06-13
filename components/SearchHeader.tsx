@@ -1,10 +1,11 @@
-import { View, StyleSheet, TouchableOpacity, TextInput, Keyboard, ToastAndroid } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, TextInput, Keyboard } from 'react-native';
 import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase } from '@react-navigation/routers'
 import { SearchBar } from '../dev/Dummy';
+import Toast from 'react-native-root-toast';
 
 interface Props {
     placeholder: string,
@@ -28,7 +29,7 @@ export default function SearchHeader({ placeholder, type, navigation }: Props) {
                 if (categoryType !== null) {
                     navigation.navigate('Request', { categoryType });
                 } else {
-                    ToastAndroid.show('Category not found', ToastAndroid.SHORT);
+                    Toast.show('Category not found', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
                 }
 
                 return;
