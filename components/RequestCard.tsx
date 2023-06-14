@@ -3,7 +3,7 @@ import { Avatar, HStack, VStack } from '@react-native-material/core';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { RequestCardData } from '../types/RequestCardData';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 
 export interface RequestCardProps extends RequestCardData {
@@ -33,7 +33,7 @@ export default function RequestCard({
     };
 
     const toggleMessage = (): void => {
-        console.log(id)
+        console.log(id + poster.name)
     };
 
     const timeGapToString = (): string => {
@@ -62,7 +62,7 @@ export default function RequestCard({
     return (
         <View>
             <Modal
-                animationType="slide"
+                animationType='fade'
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(!modalVisible)}
@@ -121,20 +121,29 @@ export default function RequestCard({
                                     (startTime || endTime) &&
                                     (
                                         <View style={styles.informationContainer}>
-                                            <MaterialCommunityIcons style={styles.prefixIcon} name='clock-time-four' size={15} />
-                                            <Text>{`Time: ${startTime && startTime.toLocaleString()} ${endTime && `- ${endTime.toLocaleString()}`}`}</Text>
+                                            <MaterialCommunityIcons style={styles.prefixIcon} name='clock-time-four' size={15}>
+                                                <Text style={{ fontSize: 13 }}>
+                                                    {` Time: ${startTime && startTime.toLocaleString()} ${endTime && `- ${endTime.toLocaleString()}`}`}
+                                                </Text>
+                                            </MaterialCommunityIcons>
                                         </View>
                                     )
                                 }
 
                                 <View style={styles.informationContainer}>
-                                    <FontAwesome5 style={styles.prefixIcon} name='dollar-sign' size={15} />
-                                    <Text>{`Estimate pay: ${pay}`}</Text>
+                                    <FontAwesome5 style={styles.prefixIcon} name='dollar-sign' size={15}>
+                                        <Text style={{ fontWeight: 'normal', fontSize: 13 }}>
+                                            {` Pay: ${pay}`}
+                                        </Text>
+                                    </FontAwesome5>
                                 </View>
 
                                 <View style={styles.informationContainer}>
-                                    <MaterialCommunityIcons style={styles.prefixIcon} name='office-building-marker' size={15} />
-                                    <Text>{`Address: ${address.location}`}</Text>
+                                    <MaterialCommunityIcons style={styles.prefixIcon} name='office-building-marker' size={15}>
+                                        <Text style={{ fontSize: 13 }}>
+                                            {` Address: ${address.location}`}
+                                        </Text>
+                                    </MaterialCommunityIcons>
                                 </View>
                             </View>
 
@@ -198,12 +207,11 @@ const styles = StyleSheet.create({
     },
     informationContainer: {
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        width: '80%',
+        flexWrap: 'wrap',
+        width: '90%',
     },
     prefixIcon: {
-        marginRight: 5,
-        marginTop: 2
+        marginVertical: 3
     },
     centeredView: {
         flex: 1,

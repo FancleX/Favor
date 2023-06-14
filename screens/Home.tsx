@@ -1,8 +1,8 @@
 import React from 'react';
 import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Category from './Category';
-import Request from './Request';
+import Category from '../components/Category';
+import Request from '../components/Request';
 import { RootNavParamList } from '../types/Navigation';
 
 const Stack = createStackNavigator<RootNavParamList>();

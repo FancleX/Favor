@@ -9,7 +9,7 @@ export enum FilterOptions {
 }
 
 interface Props {
-    onSelectedHandler(selectedItem: FilterOptions, index: number): void;
+    onSelectedHandler(selectedItem: FilterOptions): void;
 }
 
 export default function RequestFilter({ onSelectedHandler }: Props) {

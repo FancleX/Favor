@@ -1,18 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { RootNavParamList } from '../types/Navigation';
+import SessionBox from '../components/SessionBox';
+import ChatBox from '../components/ChatBox';
+
+const Stack = createStackNavigator<RootNavParamList>();
 
 export default function Message() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <Text>Message</Text>
-      </View>
+      <Stack.Navigator
+        initialRouteName='MessageBox'
+        screenOptions={{ headerShown: false }}>
+
+        <Stack.Screen name='MessageBox' component={SessionBox} />
+        <Stack.Screen name='ChatBox' component={ChatBox} />
+      </Stack.Navigator>
     </TouchableWithoutFeedback>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});

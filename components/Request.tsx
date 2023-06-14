@@ -1,11 +1,11 @@
 import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootNavParamList } from '../types/Navigation';
-import RequestFilter, { FilterOptions } from '../components/RequestFilter';
+import RequestFilter, { FilterOptions } from './RequestFilter';
 import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { RequestDummyData } from '../dev/Dummy';
-import RequestCard, { RequestCardProps } from '../components/RequestCard';
+import RequestCard, { RequestCardProps } from './RequestCard';
 import { Divider } from '@rneui/themed';
 import RequestCardSkeleton from '../skeletons/RequestCardSkeleton';
 import * as Location from 'expo-location';

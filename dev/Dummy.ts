@@ -1,5 +1,6 @@
-import { CategoryType } from "../screens/Category";
+import { CategoryType } from "../components/Category";
 import { RequestCardData } from "../types/RequestCardData";
+import { ChatMessage, SessionData } from "../types/Session";
 
 
 export class MessageDrawer {
@@ -131,6 +132,52 @@ export class SearchBar {
 
         return null;
     }
+}
 
+export class Message {
+    public static chatHistoryJohn: ChatMessage[] = [
+        {
+            id: 100,
+            content: 'hey John',
+            timestamp: new Date('2023-06-06T14:30:00'),
+            isRead: true,
+            isSender: true
+        },
+        {
+            id: 100,
+            content: 'hello 1',
+            timestamp: new Date('2023-06-06T14:30:15'),
+            isRead: true,
+            isSender: false
+        },
+        {
+            id: 100,
+            content: 'hello 2',
+            timestamp: new Date('2023-06-06T14:30:17'),
+            isRead: false,
+            isSender: false
+        },
+        {
+            id: 100,
+            content: 'hello 3',
+            timestamp: new Date('2023-06-06T14:31:25'),
+            isRead: false,
+            isSender: false
+        },
+    ];
 
+    public static sessionHistoryJohn: SessionData[] = [
+        {
+            avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
+            contactName: {
+                name: 'John',
+                id: 'bf7defc65a3e97605744caf8934a1631'
+            },
+            latestMessage: {
+                date: new Date('2023-06-06T14:31:25'),
+                content: 'hello 3'
+            },
+            unReads: 2
+        }
+    ];
 }
