@@ -5,7 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Badge } from '@rneui/themed';
+import { Badge } from '@react-native-material/core';
 import Home from './screens/Home';
 import Message from './screens/Message';
 import Account from './screens/Account';
@@ -63,14 +63,12 @@ export default function App() {
               drawerIcon: ({ color }) => (
                 <>
                   <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
-                  {
-                    MessageDrawer.messageNumber > 0 &&
-                    <Badge
-                      status="error"
-                      value={10}
-                      containerStyle={{ position: 'absolute', top: 5, left: 20 }}
-                    />
-                  }
+                  <Badge
+                    label={MessageDrawer.messageNumber}
+                    color='red'
+                    style={styles.badge}
+                    labelStyle={styles.badgeLabel}
+                  />
                 </>
               ),
               header: ({ navigation }) =>
@@ -99,5 +97,15 @@ export default function App() {
 const styles = StyleSheet.create({
   drawTextStyle: {
     marginLeft: -5
+  },
+  badge: {
+    position: 'absolute',
+    top: 5,
+    left: 20,
+    height: 18
+  },
+  badgeLabel: {
+    color: '#fff',
+    fontSize: 11
   }
 });

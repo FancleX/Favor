@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginHorizontal: 20,
         width: 100,
-        height: 130,
+        height: 130
     },
     imageContainer: {
         flex: 1,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     image: {
         borderWidth: 1,
         borderRadius: 20,
-        opacity: 0.75,
+        opacity: 0.75
     },
     text: {
         color: '#000',

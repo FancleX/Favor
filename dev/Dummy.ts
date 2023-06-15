@@ -177,6 +177,18 @@ export class Message {
                 date: new Date('2023-06-06T14:31:25'),
                 content: 'hello 3'
             },
+            unReads: 100
+        },
+        {
+            avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
+            contactName: {
+                name: 'John',
+                id: 'bf7defc65a3e97605744caf8934a1631'
+            },
+            latestMessage: {
+                date: new Date('2023-06-06T14:31:25'),
+                content: 'hello 3'
+            },
             unReads: 2
         }
     ];

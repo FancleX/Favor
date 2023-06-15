@@ -67,7 +67,7 @@ export default function Request({ route }: Props) {
 
     }, [currentLocation]);
 
-    const onFilterSelectedHandler = (selectedFilter: FilterOptions): void => {
+    const onFilterSelectedHandler = (selectedFilter: FilterOptions) => {
         switch (selectedFilter) {
             case FilterOptions.LATEST_POST:
                 cardsData.sort((a, b) => a.timeGap - b.timeGap);
@@ -89,7 +89,7 @@ export default function Request({ route }: Props) {
         setCardsData([...cardsData]);
     };
 
-    const getLocation = async (): Promise<Location.LocationObject | false> => {
+    const getLocation = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
 
         if (status !== 'granted') {
@@ -100,7 +100,7 @@ export default function Request({ route }: Props) {
         return location;
     };
 
-    const getDistanceDifferenceInMile = (point1: { lat: number, lng: number }, point2: { lat: number, lng: number }): number => {
+    const getDistanceDifferenceInMile = (point1: { lat: number, lng: number }, point2: { lat: number, lng: number }) => {
         const toRadians = (degrees: number) => {
             return degrees * (Math.PI / 180);
         };
@@ -125,7 +125,7 @@ export default function Request({ route }: Props) {
         return dist;
     };
 
-    const getTimeGap = (date1: Date, date2: Date): number => {
+    const getTimeGap = (date1: Date, date2: Date) => {
         const diff = Math.abs(date1.getTime() - date2.getTime());
 
         return diff;

@@ -28,15 +28,15 @@ export default function RequestCard({
     const [toggleMoreText, setToggleMoreText] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState(false);
 
-    const handleTextLayoutChange = (event: NativeSyntheticEvent<TextLayoutEventData>): void => {
+    const handleTextLayoutChange = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
         setTextMoreThanMaxLines(event.nativeEvent.lines.length >= maxDescriptionLines);
     };
 
-    const toggleMessage = (): void => {
+    const toggleMessage = () => {
         console.log(id + poster.name)
     };
 
-    const timeGapToString = (): string => {
+    const timeGapToString = () => {
         const years = Math.round(timeGap / (1000 * 60 * 60 * 24 * 365));
         const months = Math.round(timeGap / (1000 * 60 * 60 * 24 * 30));
         const days = Math.round(timeGap / (1000 * 60 * 60 * 24));
@@ -88,10 +88,7 @@ export default function RequestCard({
             <TouchableOpacity style={styles.container} onLongPress={() => setModalVisible(true)}>
                 <HStack m={4} spacing={6}>
                     <View>
-                        {
-                            poster.avatar ? <Avatar image={{ uri: poster.avatar }} autoColor />
-                                : <Avatar label={poster.name} autoColor />
-                        }
+                        <Avatar image={{ uri: poster.avatar }} label={poster.name} autoColor />
                     </View>
 
                     <View>
