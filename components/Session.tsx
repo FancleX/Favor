@@ -30,7 +30,7 @@ export default function Session({
             alert(text);
         };
         return (
-            <Animated.View style={{ flex: 1, transform: [{ translateX: 0 }] }}>
+            <Animated.View style={{ flex: 1, transform: [{ translateX: trans }] }}>
                 <RectButton
                     style={[styles.rightAction, { backgroundColor: color }]}
                     onPress={pressHandler}>
@@ -41,7 +41,7 @@ export default function Session({
     };
 
     const renderRightActions = (progress: Animated.AnimatedInterpolation<string | number>) => (
-        <View style={{ width: 80, flexDirection: 'row' }}>
+        <View style={{ width: 64, flexDirection: 'row' }}>
             {renderRightAction('Delete', '#dd2c00', 64, progress)}
         </View>
     );
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     },
     actionText: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 15,
         backgroundColor: 'transparent',
         padding: 10,
     },
