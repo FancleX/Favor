@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 import { CategoryItem, CategoryType } from './Category.d';
+import { SearchHeader } from '../SearchHeader';
+import { SearchBar } from '../../dev/Dummy';
+import Toast from 'react-native-root-toast';
 
 const categories: CategoryItem[] = [
     {
@@ -36,7 +39,6 @@ const categories: CategoryItem[] = [
 export default function Category() {
 
     const groupedCategoryItems: CategoryItem[][] = [];
-
     const router = useNavigation<StackNavigationProp<RootNavParamList>>();
 
     useEffect(() => {
@@ -72,8 +74,23 @@ export default function Category() {
         </View>
     );
 
+    const searchCallback = async (input: string) => {
+        const categoryType = await SearchBar.searchCategory(input);
+        console.log(categoryType)
+
+        if (categoryType !== null) {
+            router.navigate('Request', { categoryType });
+        } else {
+            Toast.show('Category not found', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
+        }
+    }
+
     return (
         <View style={styles.container}>
+            <SearchHeader
+                placeholder='Search a category'
+                searchCallback={searchCallback}
+            />
             <FlatList
                 data={groupedCategoryItems}
                 renderItem={renderCategoryItems}

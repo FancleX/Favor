@@ -196,3 +196,7 @@ export class Message {
         }
     ];
 }
+
+export class UI {
+    public static renderChatBoxHeader: boolean = false;
+}

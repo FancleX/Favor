@@ -1,11 +1,43 @@
-import { View, Text } from 'react-native';
+import { useEffect } from 'react';
+import { View, Text, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native';
+import { Message, UI } from '../../dev/Dummy';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootNavParamList } from '../../router/Navigation';
 
-type Props = {}
+interface Props extends StackScreenProps<RootNavParamList, 'ChatBox'> { }
 
-export default function ChatBox({ }: Props) {
+export default function ChatBox({ route }: Props) {
+
+    const { contactId } = route.params;
+
+    useEffect(() => {
+        console.log(contactId)
+        // if (router.isFocused()) {
+        // UI.renderChatBoxHeader = true;
+        // } else {
+        //     UI.renderChatBoxHeader = false;
+        // }
+        console.log(1)
+        return () => { console.log(2) };
+    }, []);
+
     return (
-        <View>
-            <Text>ChatBox</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View style={styles.container}>
+                <Text style={styles.headerContainer}>ChatBox</Text>
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    headerContainer: {
+        width: '100%',
+        height: 50,
+        padding: 10,
+        textAlign: 'center'
+    }
+});

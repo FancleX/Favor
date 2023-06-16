@@ -1,8 +1,8 @@
-import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 import RequestFilter, { FilterOptions } from './RequestFilter';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { RequestDummyData } from '../../dev/Dummy';
 import RequestCard, { RequestCardProps } from './RequestCard';
@@ -10,6 +10,7 @@ import { Divider } from '@rneui/themed';
 import RequestCardSkeleton from './RequestCardSkeleton';
 import * as Location from 'expo-location';
 import Toast from 'react-native-root-toast';
+import { SearchHeader } from '../SearchHeader';
 
 interface Props extends StackScreenProps<RootNavParamList, 'Request'> { }
 
@@ -20,52 +21,54 @@ export default function Request({ route }: Props) {
     const [cardsData, setCardsData] = useState<RequestCardProps[]>([]);
     const [currentLocation, setCurrentLocation] = useState<Location.LocationObject | null>(null);
 
+    const processData = useCallback(async () => {
+        const location = await getLocation();
+
+        // get current location if available
+        if (location) {
+            setCurrentLocation(location);
+        }
+
+        // fulfill card data
+        RequestDummyData.getRequestData(categoryType)
+            .then((data) => {
+                if (data !== null) {
+                    const cardList: RequestCardProps[] = [];
+
+                    data.forEach((item) => {
+                        const cardData: RequestCardProps = { ...item, timeGap: 0 };
+
+                        if (currentLocation) {
+                            // calculate distance between currentGPS with address
+                            const { latitude: lat1, longitude: lng1 } = item.address;
+                            const { latitude: lat2, longitude: lng2 } = currentLocation.coords;
+
+                            cardData.distance =
+                                getDistanceDifferenceInMile({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 });
+                        }
+
+                        // calculate time gap between now and post date
+                        cardData.timeGap = getTimeGap(item.postDate, new Date());
+
+                        cardList.push(cardData);
+                    });
+
+                    setCardsData(cardList);
+                }
+            })
+            .catch((error) =>
+                Toast.show(`Unable to fetch data: ${error}`, { duration: Toast.durations.SHORT }))
+    }, [currentLocation]);
+
     useEffect(() => {
         // enable loading ui
         setIsLoading(true);
 
-        getLocation()
-            .then((location) => {
-                // get current location if available
-                if (location) {
-                    setCurrentLocation(location);
-                }
-            })
-            .catch((error) => console.log(error))
-            .finally(() => {
-                // fulfill card data
-                RequestDummyData.getRequestData(categoryType)
-                    .then((data) => {
-                        if (data !== null) {
-                            const cardList: RequestCardProps[] = [];
+        processData()
+            .finally(() => setIsLoading(false));
 
-                            data.forEach((item) => {
-                                const cardData: RequestCardProps = { ...item, timeGap: 0 };
+    }, [processData]);
 
-                                if (currentLocation) {
-                                    // calculate distance between currentGPS with address
-                                    const { latitude: lat1, longitude: lng1 } = item.address;
-                                    const { latitude: lat2, longitude: lng2 } = currentLocation.coords;
-
-                                    cardData.distance =
-                                        getDistanceDifferenceInMile({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 });
-                                }
-
-                                // calculate time gap between now and post date
-                                cardData.timeGap = getTimeGap(item.postDate, new Date());
-
-                                cardList.push(cardData);
-                            });
-
-                            setCardsData(cardList);
-                        }
-                    })
-                    .catch((error) =>
-                        Toast.show(`Unable to fetch data: ${error}`, { duration: Toast.durations.SHORT }))
-                    .finally(() => setIsLoading(false));
-            });
-
-    }, [currentLocation]);
 
     const onFilterSelectedHandler = (selectedFilter: FilterOptions) => {
         switch (selectedFilter) {
@@ -131,9 +134,18 @@ export default function Request({ route }: Props) {
         return diff;
     };
 
+    const searchCallback = async (input: string) => {
+
+    }
+
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
+                <SearchHeader
+                    placeholder='Search a poster'
+                    searchCallback={searchCallback}
+                />
+
                 <View style={styles.filterContainer}>
                     <RequestFilter
                         onSelectedHandler={onFilterSelectedHandler}

@@ -12,8 +12,10 @@ export default function Home() {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Stack.Navigator
         initialRouteName='Category'
-        screenOptions={{ headerShown: false }}>
-
+        screenOptions={{
+          headerShown: false
+        }}
+      >
         <Stack.Screen name='Category' component={Category} />
         <Stack.Screen name='Request' component={Request} />
       </Stack.Navigator>

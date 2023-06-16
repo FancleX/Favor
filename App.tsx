@@ -10,7 +10,6 @@ import Home from './screens/Home';
 import Message from './screens/Message';
 import Account from './screens/Account';
 import { CustomDrawer } from './components/CustomDrawer';
-import { SearchHeader } from './components/SearchHeader';
 import Post from './screens/Post';
 import { MessageDrawer } from './dev/Dummy';
 import { RootNavParamList } from './router/Navigation';
@@ -19,6 +18,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 const Drawer = createDrawerNavigator<RootNavParamList>();
 
 export default function App() {
+
   return (
     <RootSiblingParent>
       <NavigationContainer>
@@ -27,7 +27,7 @@ export default function App() {
           initialRouteName='Home'
           drawerContent={(props) => <CustomDrawer {...props} />}
           screenOptions={{
-            headerShown: true,
+            headerShown: false,
             drawerLabelStyle: styles.drawTextStyle
           }}
         >
@@ -38,13 +38,7 @@ export default function App() {
             options={{
               drawerIcon: ({ color }) => (
                 <Ionicons name="home-outline" size={22} color={color} />
-              ),
-              header: ({ navigation }) =>
-                <SearchHeader
-                  placeholder='Search a category'
-                  type='Category'
-                  navigation={navigation}
-                />
+              )
             }} />
 
           <Drawer.Screen
@@ -70,13 +64,7 @@ export default function App() {
                     labelStyle={styles.badgeLabel}
                   />
                 </>
-              ),
-              header: ({ navigation }) =>
-                <SearchHeader
-                  placeholder='Search a conversation'
-                  type='Message'
-                  navigation={navigation}
-                />
+              )
             }} />
 
           <Drawer.Screen

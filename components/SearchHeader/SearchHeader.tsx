@@ -2,39 +2,25 @@ import { View, StyleSheet, TouchableOpacity, TextInput, Keyboard } from 'react-n
 import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { ParamListBase } from '@react-navigation/routers'
-import { SearchBar } from '../../dev/Dummy';
-import Toast from 'react-native-root-toast';
+import { DrawerActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     placeholder: string,
-    type: 'Category' | 'Message',
-    navigation: DrawerNavigationProp<ParamListBase, string, undefined>
+    searchCallback(input: string): Promise<void>
 }
 
-export default function SearchHeader({ placeholder, type, navigation }: Props) {
+export default function SearchHeader({ placeholder, searchCallback }: Props) {
 
     const [textInput, setTextInput] = useState<string>("");
+    const router = useNavigation();
 
     const doSearch = async () => {
         if (textInput.trim().length > 0) {
             console.log(textInput);
             Keyboard.dismiss();
 
-            if (type === 'Category') {
-                const categoryType = await SearchBar.searchCategory(textInput);
-                console.log(categoryType)
-
-                if (categoryType !== null) {
-                    navigation.navigate('Request', { categoryType });
-                } else {
-                    Toast.show('Category not found', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
-                }
-
-                return;
-            }
-
+            await searchCallback(textInput);
         }
     }
 
@@ -42,7 +28,7 @@ export default function SearchHeader({ placeholder, type, navigation }: Props) {
         <View style={styles.headerContainer}>
             <TouchableOpacity onPress={() => {
                 Keyboard.dismiss();
-                navigation.toggleDrawer();
+                router.dispatch(DrawerActions.toggleDrawer());
             }}>
                 <Ionicons name="md-menu" size={25} color="black" />
             </TouchableOpacity>
