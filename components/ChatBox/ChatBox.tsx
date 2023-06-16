@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { View, Text, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native';
-import { Message, UI } from '../../dev/Dummy';
+import { Message } from '../../dev/Dummy';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 
@@ -11,14 +11,6 @@ export default function ChatBox({ route }: Props) {
     const { contactId } = route.params;
 
     useEffect(() => {
-        console.log(contactId)
-        // if (router.isFocused()) {
-        // UI.renderChatBoxHeader = true;
-        // } else {
-        //     UI.renderChatBoxHeader = false;
-        // }
-        console.log(1)
-        return () => { console.log(2) };
     }, []);
 
     return (
