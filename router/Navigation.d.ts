@@ -1,4 +1,4 @@
-import { CategoryType } from "../components/Category";
+import { CategoryType } from "../components/Category/Category";
 
 export type RootNavParamList = {
     Account: undefined,
@@ -8,5 +8,5 @@ export type RootNavParamList = {
     Post: undefined,
     Request: { categoryType: CategoryType },
     MessageBox: undefined,
-    ChatBox: { contactId: number },
+    ChatBox: { contactId: string },
 }

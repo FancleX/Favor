@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Session from './Session';
-import { Message } from '../dev/Dummy';
+import { Message } from '../../dev/Dummy';
 
 
 export default function SessionBox() {

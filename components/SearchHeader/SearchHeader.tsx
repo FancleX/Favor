@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase } from '@react-navigation/routers'
-import { SearchBar } from '../dev/Dummy';
+import { SearchBar } from '../../dev/Dummy';
 import Toast from 'react-native-root-toast';
 
 interface Props {

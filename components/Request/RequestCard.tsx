@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity, NativeSyntheticEvent, TextLay
 import { Avatar, HStack, VStack } from '@react-native-material/core';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { RequestCardData } from '../types/RequestCardData';
-import { useCallback, useMemo, useState } from 'react';
+import { RequestCardData } from './RequestCardData';
+import { useState } from 'react';
 
 
 export interface RequestCardProps extends RequestCardData {

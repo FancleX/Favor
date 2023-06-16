@@ -1,9 +1,12 @@
 import { useRef } from 'react';
-import { View, Text, Animated, StyleSheet, Image, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, Animated, StyleSheet, TouchableHighlight } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { SessionData } from '../types/Session';
+import { SessionData } from './Session.d';
 import { HStack, VStack, Avatar, Badge, Divider } from '@react-native-material/core';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootNavParamList } from '../../router/Navigation';
 
 export default function Session({
     avatar,
@@ -19,6 +22,7 @@ export default function Session({
 }: SessionData) {
 
     const swipeableRef = useRef<Swipeable>(null);
+    const router = useNavigation<StackNavigationProp<RootNavParamList>>();
 
     const renderRightAction = (text: string, color: string, x: number, progress: Animated.AnimatedInterpolation<string | number>) => {
         const trans = progress.interpolate({
@@ -46,6 +50,10 @@ export default function Session({
         </View>
     );
 
+    const toggleChatBox = () => {
+        router.navigate('ChatBox', { contactId: id });
+    };
+
     return (
         <>
             <Swipeable
@@ -55,39 +63,42 @@ export default function Session({
                 renderRightActions={renderRightActions}
             >
                 <View style={{ width: '100%', height: 60 }}>
-                    <HStack m={9} spacing={9}>
-                        <View>
-                            <Avatar
-                                image={{ uri: avatar }}
-                                style={styles.avatar}
-                                imageStyle={styles.avatar}
-                                size={42}
-                                autoColor
-                            />
-                            <Badge
-                                label={unReads}
-                                color='red'
-                                style={unReads < 100 ? styles.avatarBadgeTwoDigits : styles.avatarBadgeMoreDigits}
-                                labelStyle={styles.avatarBadgeLabel}
-                            />
-                        </View>
+                    <TouchableHighlight underlayColor='rgba(218, 224, 224, 0.7)' onPress={toggleChatBox}>
+                        <HStack m={9} spacing={9}>
+                            <View>
+                                <Avatar
+                                    image={{ uri: avatar }}
+                                    style={styles.avatar}
+                                    imageStyle={styles.avatar}
+                                    size={42}
+                                    autoColor
+                                />
+                                <Badge
+                                    label={unReads}
+                                    color='red'
+                                    style={unReads < 100 ? styles.avatarBadgeTwoDigits : styles.avatarBadgeMoreDigits}
+                                    labelStyle={styles.avatarBadgeLabel}
+                                />
+                            </View>
 
-                        <VStack
-                            spacing={5}
-                            style={{ flex: 1, marginLeft: 5 }}
-                        >
-                            <HStack style={{ alignItems: 'center' }}>
-                                <Text style={styles.headerText} numberOfLines={1}>
-                                    {name}
+                            <VStack
+                                spacing={5}
+                                style={{ flex: 1, marginLeft: 5 }}
+                            >
+                                <HStack style={{ alignItems: 'center' }}>
+                                    <Text style={styles.headerText} numberOfLines={1}>
+                                        {name}
+                                    </Text>
+                                    <Text style={styles.subText}>{date.toLocaleDateString()}</Text>
+                                </HStack>
+
+                                <Text style={styles.subText} numberOfLines={1}>
+                                    {content}
                                 </Text>
-                                <Text style={styles.subText}>{date.toLocaleDateString()}</Text>
-                            </HStack>
+                            </VStack>
+                        </HStack>
+                    </TouchableHighlight>
 
-                            <Text style={styles.subText} numberOfLines={1}>
-                                {content}
-                            </Text>
-                        </VStack>
-                    </HStack>
                 </View>
             </Swipeable>
 

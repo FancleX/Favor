@@ -1,10 +1,13 @@
 import { CategoryType } from "../components/Category";
-import { RequestCardData } from "../types/RequestCardData";
-import { ChatMessage, SessionData } from "../types/Session";
+import { RequestCardData } from "../components/Request";
+import { ChatMessage } from '../components/ChatBox';
+import { SessionData } from '../components/Session';
 
 
 export class MessageDrawer {
-    public static messageNumber: number = 10;
+    public static messageNumber = (): number => {
+        return Message.sessionHistoryJohn.reduce((total, current) => total + current.unReads, 0);
+    };
 }
 
 export class RequestDummyData {
@@ -137,28 +140,28 @@ export class SearchBar {
 export class Message {
     public static chatHistoryJohn: ChatMessage[] = [
         {
-            id: 100,
+            id: '100',
             content: 'hey John',
             timestamp: new Date('2023-06-06T14:30:00'),
             isRead: true,
             isSender: true
         },
         {
-            id: 100,
+            id: '101',
             content: 'hello 1',
             timestamp: new Date('2023-06-06T14:30:15'),
             isRead: true,
             isSender: false
         },
         {
-            id: 100,
+            id: '102',
             content: 'hello 2',
             timestamp: new Date('2023-06-06T14:30:17'),
             isRead: false,
             isSender: false
         },
         {
-            id: 100,
+            id: '103',
             content: 'hello 3',
             timestamp: new Date('2023-06-06T14:31:25'),
             isRead: false,

@@ -9,11 +9,11 @@ import { Badge } from '@react-native-material/core';
 import Home from './screens/Home';
 import Message from './screens/Message';
 import Account from './screens/Account';
-import CustomDrawer from './components/CustomDrawer';
-import SearchHeader from './components/SearchHeader';
+import { CustomDrawer } from './components/CustomDrawer';
+import { SearchHeader } from './components/SearchHeader';
 import Post from './screens/Post';
 import { MessageDrawer } from './dev/Dummy';
-import { RootNavParamList } from './types/Navigation';
+import { RootNavParamList } from './router/Navigation';
 import { RootSiblingParent } from 'react-native-root-siblings';
 
 const Drawer = createDrawerNavigator<RootNavParamList>();
@@ -64,7 +64,7 @@ export default function App() {
                 <>
                   <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
                   <Badge
-                    label={MessageDrawer.messageNumber}
+                    label={MessageDrawer.messageNumber()}
                     color='red'
                     style={styles.badge}
                     labelStyle={styles.badgeLabel}

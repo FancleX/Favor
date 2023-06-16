@@ -1,56 +1,43 @@
 import { useEffect } from 'react';
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, ImageSourcePropType, FlatList, ListRenderItem } from 'react-native';
+import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootNavParamList } from '../types/Navigation';
+import { RootNavParamList } from '../../router/Navigation';
+import { CategoryItem, CategoryType } from './Category.d';
 
-export enum CategoryType {
-    BABYSITTING = 'Babysitting',
-    DOG_WALKING = 'Dog Walking',
-    LAUNDRYING = 'Laundry',
-    CAR_WASHING = 'Car Washing',
-    HOUSE_CLEANING = 'House Cleaning',
-    ITEM_REPAIRING = 'Item Repairing'
-}
-
-export interface Category {
-    type: CategoryType,
-    image: ImageSourcePropType
-}
-
-const categories: Category[] = [
+const categories: CategoryItem[] = [
     {
         type: CategoryType.BABYSITTING,
-        image: require('../assets/babysitting.jpg')
+        image: require('../../assets/babysitting.jpg')
     },
     {
         type: CategoryType.DOG_WALKING,
-        image: require('../assets/dog-walking.jpg')
+        image: require('../../assets/dog-walking.jpg')
     },
     {
         type: CategoryType.LAUNDRYING,
-        image: require('../assets/laundry.jpg')
+        image: require('../../assets/laundry.jpg')
     },
     {
         type: CategoryType.CAR_WASHING,
-        image: require('../assets/car-wash.png')
+        image: require('../../assets/car-wash.png')
     },
     {
         type: CategoryType.HOUSE_CLEANING,
-        image: require('../assets/house-cleaning.jpg')
+        image: require('../../assets/house-cleaning.jpg')
     },
     {
         type: CategoryType.ITEM_REPAIRING,
-        image: require('../assets/item-repairing.jpg')
+        image: require('../../assets/item-repairing.jpg')
     },
 ];
 
 
 export default function Category() {
 
-    const groupedCategoryItems: Category[][] = [];
+    const groupedCategoryItems: CategoryItem[][] = [];
 
-    const navigation = useNavigation<StackNavigationProp<RootNavParamList>>();
+    const router = useNavigation<StackNavigationProp<RootNavParamList>>();
 
     useEffect(() => {
         for (let i = 0; i < categories.length; i += 2) {
@@ -60,10 +47,10 @@ export default function Category() {
 
 
     const categoryOnPressHandler = (categoryType: CategoryType) => {
-        navigation.navigate('Request', { categoryType });
+        router.navigate('Request', { categoryType });
     };
 
-    const renderCategoryItems: ListRenderItem<Category[]> = ({ item }) => (
+    const renderCategoryItems: ListRenderItem<CategoryItem[]> = ({ item }) => (
         <View style={styles.groupContainer}>
             {
                 item.map(({ type, image }) => (

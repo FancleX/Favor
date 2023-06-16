@@ -10,11 +10,3 @@ export type SessionData = {
     },
     unReads: number
 }
-
-export type ChatMessage = {
-    id: number,
-    content: string,
-    timestamp: Date,
-    isRead: boolean,
-    isSender: boolean
-}

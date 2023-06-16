@@ -1,13 +1,13 @@
 import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootNavParamList } from '../types/Navigation';
+import { RootNavParamList } from '../../router/Navigation';
 import RequestFilter, { FilterOptions } from './RequestFilter';
 import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { RequestDummyData } from '../dev/Dummy';
+import { RequestDummyData } from '../../dev/Dummy';
 import RequestCard, { RequestCardProps } from './RequestCard';
 import { Divider } from '@rneui/themed';
-import RequestCardSkeleton from '../skeletons/RequestCardSkeleton';
+import RequestCardSkeleton from './RequestCardSkeleton';
 import * as Location from 'expo-location';
 import Toast from 'react-native-root-toast';
 
