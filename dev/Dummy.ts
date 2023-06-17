@@ -120,23 +120,6 @@ export class RequestDummyData {
     }
 }
 
-export class SearchBar {
-
-    public static async searchCategory(query: string): Promise<CategoryType | null> {
-        const formattedInput = query.toLowerCase().replace(/\s/g, '');
-
-        for (const categoryType of Object.values(CategoryType)) {
-            const formattedCategory = categoryType.toLowerCase().replace(/\s/g, '');
-
-            if (formattedCategory === formattedInput) {
-                return categoryType;
-            }
-        }
-
-        return null;
-    }
-}
-
 export class Message {
     public static chatHistoryJohn: ChatMessage[] = [
         {

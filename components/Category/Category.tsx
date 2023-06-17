@@ -1,11 +1,10 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 import { CategoryItem, CategoryType } from './Category.d';
 import { SearchHeader } from '../SearchHeader';
-import { SearchBar } from '../../dev/Dummy';
 import Toast from 'react-native-root-toast';
 
 const categories: CategoryItem[] = [
@@ -75,14 +74,19 @@ export default function Category() {
     );
 
     const searchCallback = async (input: string) => {
-        const categoryType = await SearchBar.searchCategory(input);
-        console.log(categoryType)
+        const formattedInput = input.toLowerCase().replace(/\s/g, '');
 
-        if (categoryType !== null) {
-            router.navigate('Request', { categoryType });
-        } else {
-            Toast.show('Category not found', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
+        for (const categoryType of Object.values(CategoryType)) {
+            const formattedCategory = categoryType.toLowerCase().replace(/\s/g, '');
+
+            if (formattedCategory === formattedInput) {
+                router.navigate('Request', { categoryType });
+                return;
+            }
         }
+
+        Toast.show('Category not found',
+            { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
     }
 
     return (
