@@ -155,7 +155,7 @@ export class Message {
     public static sessionHistoryJohn: SessionData[] = [
         {
             avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
-            contactName: {
+            contact: {
                 name: 'John',
                 id: 'bf7defc65a3e97605744caf8934a1631'
             },
@@ -167,7 +167,7 @@ export class Message {
         },
         {
             avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
-            contactName: {
+            contact: {
                 name: 'John',
                 id: 'bf7defc65a3e97605744caf8934a1631'
             },

@@ -10,7 +10,7 @@ import { RootNavParamList } from '../../router/Navigation';
 
 export default function Session({
     avatar,
-    contactName: {
+    contact: {
         id,
         name
     },
@@ -51,7 +51,8 @@ export default function Session({
     );
 
     const toggleChatBox = () => {
-        router.navigate('ChatBox', { contactId: id });
+        console.log(id, name)
+        router.navigate('ChatBox', { contact: { name, id } });
     };
 
     return (
@@ -63,7 +64,10 @@ export default function Session({
                 renderRightActions={renderRightActions}
             >
                 <View style={{ width: '100%', height: 60 }}>
-                    <TouchableHighlight underlayColor='rgba(218, 224, 224, 0.7)' onPress={toggleChatBox}>
+                    <TouchableHighlight
+                        underlayColor='rgba(218, 224, 224, 0.7)'
+                        onPress={toggleChatBox}
+                    >
                         <HStack m={9} spacing={9}>
                             <View>
                                 <Avatar

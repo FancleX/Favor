@@ -1,6 +1,6 @@
 export type SessionData = {
     avatar?: string,
-    contactName: {
+    contact: {
         id: string,
         name: string
     },

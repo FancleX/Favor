@@ -47,7 +47,8 @@ export default function App() {
             options={{
               drawerIcon: ({ color }) => (
                 <FontAwesome name="send-o" size={22} color={color} />
-              )
+              ),
+              headerShown: true
             }} />
 
           <Drawer.Screen
@@ -73,7 +74,8 @@ export default function App() {
             options={{
               drawerIcon: ({ color }) => (
                 <Ionicons name="person-outline" size={22} color={color} />
-              )
+              ),
+              headerShown: true
             }} />
         </Drawer.Navigator>
       </NavigationContainer>

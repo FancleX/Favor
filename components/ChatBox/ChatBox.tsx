@@ -3,12 +3,13 @@ import { View, Text, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'reac
 import { Message } from '../../dev/Dummy';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
+import ChatBoxHeader from './ChatBoxHeader';
 
 interface Props extends StackScreenProps<RootNavParamList, 'ChatBox'> { }
 
 export default function ChatBox({ route }: Props) {
 
-    const { contactId } = route.params;
+    const { contact } = route.params;
 
     useEffect(() => {
     }, []);
@@ -16,7 +17,7 @@ export default function ChatBox({ route }: Props) {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
-                <Text style={styles.headerContainer}>ChatBox</Text>
+                <ChatBoxHeader contact={contact} />
             </View>
         </TouchableWithoutFeedback>
     )

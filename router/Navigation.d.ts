@@ -8,5 +8,5 @@ export type RootNavParamList = {
     Post: undefined,
     Request: { categoryType: CategoryType },
     MessageBox: undefined,
-    ChatBox: { contactId: string },
+    ChatBox: { contact: { name: string, id: string } },
 }
