@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 import { CategoryItem, CategoryType } from './Category.d';
-import { SearchHeader } from '../SearchHeader';
+import { SearchBar } from '../SearchBar';
 import Toast from 'react-native-root-toast';
 
 const categories: CategoryItem[] = [
@@ -73,7 +73,7 @@ export default function Category() {
         </View>
     );
 
-    const searchCallback = async (input: string) => {
+    const onSearch = async (input: string) => {
         const formattedInput = input.toLowerCase().replace(/\s/g, '');
 
         for (const categoryType of Object.values(CategoryType)) {
@@ -91,9 +91,9 @@ export default function Category() {
 
     return (
         <View style={styles.container}>
-            <SearchHeader
+            <SearchBar
                 placeholder='Search a category'
-                searchCallback={searchCallback}
+                onSearch={onSearch}
             />
             <FlatList
                 data={groupedCategoryItems}

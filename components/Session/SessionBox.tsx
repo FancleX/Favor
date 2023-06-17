@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Session from './Session';
 import { Message } from '../../dev/Dummy';
-import { SearchHeader } from '../SearchHeader';
+import { SearchBar } from '../SearchBar';
 
 
 export default function SessionBox() {
@@ -11,15 +11,15 @@ export default function SessionBox() {
 
     }, []);
 
-    const searchCallback = async (input: string) => {
+    const onSearch = async (input: string) => {
 
     };
 
     return (
         <View style={styles.container}>
-            <SearchHeader
+            <SearchBar
                 placeholder='Search a conversation'
-                searchCallback={searchCallback}
+                onSearch={onSearch}
             />
 
             <FlatList

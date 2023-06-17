@@ -51,7 +51,6 @@ export default function Session({
     );
 
     const toggleChatBox = () => {
-        console.log(id, name)
         router.navigate('ChatBox', { contact: { name, id } });
     };
 

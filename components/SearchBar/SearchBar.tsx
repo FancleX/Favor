@@ -7,10 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     placeholder: string,
-    searchCallback(input: string): Promise<void>
+    onSearch(input: string): Promise<void>
 }
 
-export default function SearchHeader({ placeholder, searchCallback }: Props) {
+export default function SearchBar({ placeholder, onSearch }: Props) {
 
     const [textInput, setTextInput] = useState<string>("");
     const router = useNavigation();
@@ -20,7 +20,7 @@ export default function SearchHeader({ placeholder, searchCallback }: Props) {
             console.log(textInput);
             Keyboard.dismiss();
 
-            await searchCallback(textInput);
+            await onSearch(textInput);
         }
     }
 

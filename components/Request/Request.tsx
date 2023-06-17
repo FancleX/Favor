@@ -10,7 +10,7 @@ import { Divider } from '@rneui/themed';
 import RequestCardSkeleton from './RequestCardSkeleton';
 import * as Location from 'expo-location';
 import Toast from 'react-native-root-toast';
-import { SearchHeader } from '../SearchHeader';
+import { SearchBar } from '../SearchBar';
 
 interface Props extends StackScreenProps<RootNavParamList, 'Request'> { }
 
@@ -134,16 +134,16 @@ export default function Request({ route }: Props) {
         return diff;
     };
 
-    const searchCallback = async (input: string) => {
+    const onSearch = async (input: string) => {
 
     }
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
-                <SearchHeader
+                <SearchBar
                     placeholder='Search a poster'
-                    searchCallback={searchCallback}
+                    onSearch={onSearch}
                 />
 
                 <View style={styles.filterContainer}>
