@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface Props {
     contact: {
@@ -14,7 +14,7 @@ interface Props {
     }
 }
 
-export default function ChatBoxHeader({
+export default function Header({
     contact: {
         name,
         id
@@ -24,13 +24,6 @@ export default function ChatBoxHeader({
     const router = useNavigation<StackNavigationProp<RootNavParamList>>();
     const [leftIconPress, setLeftIconPress] = useState<boolean>(false);
     const [rightIconPress, setRightIconPress] = useState<boolean>(false);
-
-
-    useEffect(() => {
-        // check and clear unreads
-
-    }, []);
-
 
     return (
         <View style={styles.headerContainer}>

@@ -4,8 +4,8 @@ export interface Props {
     onSend(text: string): Promise<void>
 }
 
-export default function MessageSender({ }: Props) {
+export default function MessageBox({ }: Props) {
     return (
-        <div>MessageSender</div>
+        <div>MessageBox</div>
     )
 }
