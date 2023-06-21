@@ -1,8 +1,8 @@
 export type SessionData = {
-    avatar?: string,
     contact: {
         id: string,
-        name: string
+        name: string,
+        avatar?: string,
     },
     latestMessage: {
         date: Date,

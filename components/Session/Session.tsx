@@ -9,10 +9,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
 
 export default function Session({
-    avatar,
     contact: {
         id,
-        name
+        name,
+        avatar
     },
     latestMessage: {
         date,
@@ -51,11 +51,11 @@ export default function Session({
     );
 
     const toggleChatBox = () => {
-        router.navigate('ChatBox', { contact: { name, id } });
+        router.navigate('ChatBox', { contact: { id: id, name: name, avatar: avatar } });
     };
 
     return (
-        <>
+        <View>
             <Swipeable
                 ref={swipeableRef}
                 rightThreshold={40}
@@ -74,6 +74,7 @@ export default function Session({
                                     style={styles.avatar}
                                     imageStyle={styles.avatar}
                                     size={42}
+                                    label={name}
                                     autoColor
                                 />
                                 <Badge
@@ -106,7 +107,7 @@ export default function Session({
             </Swipeable>
 
             <Divider style={{ marginLeft: 65 }} />
-        </>
+        </View>
     )
 }
 

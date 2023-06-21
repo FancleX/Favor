@@ -154,10 +154,10 @@ export class Message {
 
     public static sessionHistoryJohn: SessionData[] = [
         {
-            avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
             contact: {
                 name: 'John',
-                id: 'bf7defc65a3e97605744caf8934a1631'
+                id: 'bf7defc65a3e97605744caf8934a1631',
+                avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
             },
             latestMessage: {
                 date: new Date('2023-06-06T14:31:25'),
@@ -166,10 +166,10 @@ export class Message {
             unReads: 100
         },
         {
-            avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
             contact: {
                 name: 'John',
-                id: 'bf7defc65a3e97605744caf8934a1631'
+                id: 'bf7defc65a3e97605744caf8934a1631',
+                avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
             },
             latestMessage: {
                 date: new Date('2023-06-06T14:31:25'),

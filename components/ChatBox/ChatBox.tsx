@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { View, Text, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInputContentSizeChangeEventData, NativeSyntheticEvent } from 'react-native';
+import { useEffect } from 'react';
+import { View, Text, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native';
 import { Message } from '../../dev/Dummy';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootNavParamList } from '../../router/Navigation';
@@ -12,18 +12,17 @@ interface Props extends StackScreenProps<RootNavParamList, 'ChatBox'> { }
 export default function ChatBox({ route }: Props) {
 
     const { contact } = route.params;
-    const [listHeight, setListHeight] = useState<string>('70%');
+
+    const myAvatar = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Fpremium-photo%2Fimage-colorful-galaxy-sky-generative-ai_37741252.htm&psig=AOvVaw2vvw8M6W-4AUTf1hz6q6rx&ust=1687465612569000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCygraZ1f8CFQAAAAAdAAAAABAE';
 
     useEffect(() => {
         // check and clear unreads
 
     }, []);
 
-    const onHeightChage = (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
-        const { contentSize: { height } } = e.nativeEvent;
-
-        console.log(height)
-    };
+    const handleMessageSend = async (text: string) => {
+        console.log(text)
+    }
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -34,11 +33,11 @@ export default function ChatBox({ route }: Props) {
                     contentContainerStyle={styles.contentContainer}
                     data={Message.chatHistoryJohn}
                     renderItem={({ item }) => <Text>{item.content}</Text>}
+                    keyExtractor={(item) => item.id}
                 />
 
                 <MessageInput
-                    onSend={async (text) => { console.log(text) }}
-                    onContentSizeChange={onHeightChage}
+                    onSend={handleMessageSend}
                 />
             </View>
         </TouchableWithoutFeedback>
@@ -55,12 +54,10 @@ const styles = StyleSheet.create({
         padding: 10,
         textAlign: 'center'
     },
-    messageContainer: {
-
-    },
     contentContainer: {
         flex: 1,
-        backgroundColor: 'grey',
-        padding: 10
+        backgroundColor: '#e0e0de',
+        padding: 10,
+        height: 'auto'
     }
 });

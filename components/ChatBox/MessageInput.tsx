@@ -1,56 +1,81 @@
-import { HStack } from '@react-native-material/core';
 import { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, StyleProp, ViewStyle, NativeSyntheticEvent, TextInputContentSizeChangeEventData } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableHighlight, Keyboard } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface Props {
     onSend(text: string): Promise<void>
-    onContentSizeChange(e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>): void
 }
 
 
 export default function MessageInput({
     onSend,
-    onContentSizeChange
 }: Props) {
 
     const [value, setValue] = useState<string>('');
+    const [isOnSend, setIsOnSend] = useState<boolean>(false);
 
     useEffect(() => {
-
+        // load unsend message
     }, []);
 
+
+    const handleOnSend = async () => {
+        if (value.trim().length > 0) {
+            Keyboard.dismiss();
+
+            await onSend(value);
+        }
+    };
+
     return (
-        <View style={[styles.container]}>
+        <View style={{ flexDirection: 'row' }}>
             <TextInput
                 placeholder='Type your message'
                 multiline
                 onChangeText={setValue}
                 value={value}
                 style={styles.textInput}
-                onContentSizeChange={onContentSizeChange}
             />
+
+            <TouchableHighlight
+                onPressIn={() => setIsOnSend(true)}
+                onPressOut={() => setIsOnSend(false)}
+                onPress={handleOnSend}
+                underlayColor='lightgrey'
+                style={styles.sendButton}
+            >
+                <Ionicons
+                    name='send'
+                    size={25}
+                    color={isOnSend ? 'grey' : undefined}
+                />
+            </TouchableHighlight>
 
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'yellow',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        flexDirection: "column-reverse",
-        height: 50,
-        // maxHeight: 350
-    },
     textInput: {
         width: '70%',
         margin: 10,
-        backgroundColor: 'lightgray',
+        backgroundColor: 'lightgrey',
         borderRadius: 5,
-        paddingHorizontal: 10,
+        padding: 10,
         minHeight: 40,
-        maxHeight: 100
+        maxHeight: 200,
     },
+    sendButton: {
+        width: 80,
+        height: 50,
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        opacity: 0.8,
+        borderColor: '#a3a2a2',
+        alignSelf: 'flex-end',
+        margin: 10,
+        padding: 10
+    }
 });
