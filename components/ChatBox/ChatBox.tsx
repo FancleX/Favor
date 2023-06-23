@@ -6,6 +6,7 @@ import { RootNavParamList } from '../../router/Navigation';
 import Header from './Header';
 import { FlatList } from 'react-native-gesture-handler';
 import MessageInput from './MessageInput';
+import MessageBox from './MessageBox';
 
 interface Props extends StackScreenProps<RootNavParamList, 'ChatBox'> { }
 
@@ -14,6 +15,9 @@ export default function ChatBox({ route }: Props) {
     const { contact } = route.params;
 
     const myAvatar = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Fpremium-photo%2Fimage-colorful-galaxy-sky-generative-ai_37741252.htm&psig=AOvVaw2vvw8M6W-4AUTf1hz6q6rx&ust=1687465612569000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCygraZ1f8CFQAAAAAdAAAAABAE';
+
+    const myId = '1';
+    const myName = 'abc';
 
     useEffect(() => {
         // check and clear unreads
@@ -32,7 +36,16 @@ export default function ChatBox({ route }: Props) {
                 <FlatList
                     contentContainerStyle={styles.contentContainer}
                     data={Message.chatHistoryJohn}
-                    renderItem={({ item }) => <Text>{item.content}</Text>}
+                    renderItem={({ item }) => {
+                        const data = {
+                            ...item,
+                            name: item.isHost ? myName : contact.name,
+                            userId: item.isHost ? myId : contact.id,
+                            avatar: item.isHost ? myAvatar : contact.avatar
+                        };
+
+                        return (<MessageBox {...data} />);
+                    }}
                     keyExtractor={(item) => item.id}
                 />
 

@@ -3,5 +3,5 @@ export type ChatMessage = {
     content: string,
     timestamp: Date,
     isRead: boolean,
-    isSender: boolean
+    isHost: boolean
 }

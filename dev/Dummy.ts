@@ -127,28 +127,28 @@ export class Message {
             content: 'hey John',
             timestamp: new Date('2023-06-06T14:30:00'),
             isRead: true,
-            isSender: true
+            isHost: true
         },
         {
             id: '101',
             content: 'hello 1',
             timestamp: new Date('2023-06-06T14:30:15'),
             isRead: true,
-            isSender: false
+            isHost: false
         },
         {
             id: '102',
             content: 'hello 2',
             timestamp: new Date('2023-06-06T14:30:17'),
             isRead: false,
-            isSender: false
+            isHost: false
         },
         {
             id: '103',
             content: 'hello 3',
             timestamp: new Date('2023-06-06T14:31:25'),
             isRead: false,
-            isSender: false
+            isHost: false
         },
     ];
 
