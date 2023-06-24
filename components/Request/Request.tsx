@@ -139,35 +139,34 @@ export default function Request({ route }: Props) {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <View style={styles.container}>
-                <SearchBar
-                    placeholder='Search a poster'
-                    onSearch={onSearch}
+        <View style={styles.container}>
+            <SearchBar
+                placeholder='Search a poster'
+                onSearch={onSearch}
+            />
+
+            <View style={styles.filterContainer}>
+                <RequestFilter
+                    onSelectedHandler={onFilterSelectedHandler}
                 />
-
-                <View style={styles.filterContainer}>
-                    <RequestFilter
-                        onSelectedHandler={onFilterSelectedHandler}
-                    />
-                </View>
-
-                <Divider />
-
-                <View style={{ flex: 1 }}>
-                    {
-                        isLoading ? <RequestCardSkeleton />
-                            : <FlatList
-                                data={cardsData}
-                                renderItem={({ item }) => <RequestCard {...item} />}
-                                keyExtractor={(item) => item.id}
-                                ItemSeparatorComponent={() => <Divider />}
-                                contentContainerStyle={styles.contentContainer}
-                            />
-                    }
-                </View>
             </View>
-        </TouchableWithoutFeedback>
+
+            <Divider />
+
+            <View style={{ flex: 1 }}>
+                {
+                    isLoading ?
+                        <RequestCardSkeleton /> :
+                        <FlatList
+                            data={cardsData}
+                            renderItem={({ item }) => <RequestCard {...item} />}
+                            keyExtractor={(item) => item.id}
+                            ItemSeparatorComponent={() => <Divider />}
+                            contentContainerStyle={styles.contentContainer}
+                        />
+                }
+            </View>
+        </View>
     )
 }
 

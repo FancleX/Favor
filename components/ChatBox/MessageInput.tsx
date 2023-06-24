@@ -24,11 +24,13 @@ export default function MessageInput({
             Keyboard.dismiss();
 
             await onSend(value);
+
+            setValue('');
         }
     };
 
     return (
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', backgroundColor: '#fff' }}>
             <TextInput
                 placeholder='Type your message'
                 multiline
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     sendButton: {
         width: 80,
         height: 50,
-        borderWidth: 1,
+        borderWidth: 0.5,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,

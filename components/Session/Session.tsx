@@ -74,7 +74,7 @@ export default function Session({
                                     style={styles.avatar}
                                     imageStyle={styles.avatar}
                                     size={42}
-                                    label={name}
+                                    label={avatar ? undefined : name}
                                     autoColor
                                 />
                                 <Badge
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     actionText: {
         color: 'white',
         fontSize: 15,
-        backgroundColor: 'transparent',
+        // backgroundColor: 'transparent',
         padding: 10,
     },
     rightAction: {

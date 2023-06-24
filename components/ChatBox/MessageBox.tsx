@@ -8,21 +8,22 @@ interface Props extends ChatMessage {
     userId: string
 }
 
+const renderTimestamp = (timestamp: Date) => {
+    return `${timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+};
+
 const ChatBubble: React.FC<{ isHost: boolean, content: string, timestamp: Date }> = ({ isHost, content, timestamp }) => {
     if (isHost) {
         return (
-            <View style={{
-                backgroundColor: "#0078fe",
-                padding: 10,
-                marginLeft: '45%',
-                marginTop: 5,
-                marginRight: "7%",
-                maxWidth: '50%',
-                alignSelf: 'flex-end',
-                borderRadius: 20,
-            }}
-            >
-                <Text style={{ fontSize: 16, color: "#fff", }}>{content}</Text>
+            <View style={chatBubbleStyles.rightBubble}>
+                <View>
+                    <Text style={{ fontSize: 15, color: '#fff' }}>
+                        {content}
+                    </Text>
+                    <Text style={[chatBubbleStyles.timestamp, { color: '#fff' }]}>
+                        {renderTimestamp(timestamp)}
+                    </Text>
+                </View>
                 <View style={chatBubbleStyles.rightArrow}></View>
                 <View style={chatBubbleStyles.rightArrowOverlap}></View>
             </View>
@@ -30,22 +31,15 @@ const ChatBubble: React.FC<{ isHost: boolean, content: string, timestamp: Date }
     }
 
     return (
-        <View style={{
-            backgroundColor: "#dedede",
-            padding: 10,
-            borderRadius: 5,
-            marginTop: 5,
-            marginLeft: "5%",
-            maxWidth: '50%',
-            alignSelf: 'flex-start',
-            //maxWidth: 500,
-            //padding: 14,
-
-            //alignItems:"center",
-            // borderRadius: 20,
-        }}
-        >
-            <Text style={{ fontSize: 16, color: "#000", justifyContent: "center" }}>{content}</Text>
+        <View style={chatBubbleStyles.leftBubble}>
+            <View>
+                <Text style={{ fontSize: 15, color: "#000" }}>
+                    {content}
+                </Text>
+                <Text style={[chatBubbleStyles.timestamp, { color: '#000' }]}>
+                    {renderTimestamp(timestamp)}
+                </Text>
+            </View>
             <View style={chatBubbleStyles.leftArrow}></View>
             <View style={chatBubbleStyles.leftArrowOverlap}></View>
         </View>
@@ -53,10 +47,18 @@ const ChatBubble: React.FC<{ isHost: boolean, content: string, timestamp: Date }
 };
 
 const chatBubbleStyles = StyleSheet.create({
+    leftBubble: {
+        backgroundColor: "#fff",
+        padding: 10,
+        marginTop: 5,
+        marginLeft: "6%",
+        maxWidth: '70%',
+        alignSelf: 'flex-start',
+        borderRadius: 20,
+    },
     leftArrow: {
         position: "absolute",
-        backgroundColor: "#dedede",
-        //backgroundColor:"red",
+        backgroundColor: "#fff",
         width: 20,
         height: 25,
         bottom: 0,
@@ -72,10 +74,18 @@ const chatBubbleStyles = StyleSheet.create({
         borderBottomRightRadius: 18,
         left: -20
     },
+    rightBubble: {
+        backgroundColor: "#0078fe",
+        padding: 10,
+        marginTop: 5,
+        marginRight: "6%",
+        maxWidth: '70%',
+        alignSelf: 'flex-end',
+        borderRadius: 20,
+    },
     rightArrow: {
         position: "absolute",
         backgroundColor: "#0078fe",
-        // backgroundColor: 'red',
         width: 20,
         height: 25,
         bottom: 0,
@@ -91,8 +101,12 @@ const chatBubbleStyles = StyleSheet.create({
         borderBottomLeftRadius: 18,
         right: -20
     },
+    timestamp: {
+        fontSize: 10,
+        alignSelf: 'flex-end',
+        marginTop: 5
+    }
 });
-
 
 
 export default function MessageBox({
@@ -116,7 +130,7 @@ export default function MessageBox({
                 image={{ uri: avatar }}
                 style={styles.avatar}
                 imageStyle={styles.avatar}
-                size={30}
+                size={40}
                 label={name}
                 autoColor
             />
@@ -128,7 +142,8 @@ export default function MessageBox({
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10
+        marginVertical: 10,
+        alignItems: 'flex-end',
     },
     avatar: {
         borderRadius: 5,

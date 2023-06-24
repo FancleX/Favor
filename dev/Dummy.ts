@@ -124,21 +124,21 @@ export class Message {
     public static chatHistoryJohn: ChatMessage[] = [
         {
             id: '100',
-            content: 'hey John',
+            content: 'hey John, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             timestamp: new Date('2023-06-06T14:30:00'),
             isRead: true,
             isHost: true
         },
         {
             id: '101',
-            content: 'hello 1',
+            content: 'hello 1, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             timestamp: new Date('2023-06-06T14:30:15'),
             isRead: true,
             isHost: false
         },
         {
             id: '102',
-            content: 'hello 2',
+            content: 'hello 2 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
             timestamp: new Date('2023-06-06T14:30:17'),
             isRead: false,
             isHost: false
@@ -147,6 +147,20 @@ export class Message {
             id: '103',
             content: 'hello 3',
             timestamp: new Date('2023-06-06T14:31:25'),
+            isRead: false,
+            isHost: false
+        },
+        {
+            id: '104',
+            content: 'yo ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc',
+            timestamp: new Date('2023-06-07T14:31:25'),
+            isRead: false,
+            isHost: false
+        },
+        {
+            id: '105',
+            content: 'yo dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+            timestamp: new Date(),
             isRead: false,
             isHost: false
         },
