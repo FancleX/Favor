@@ -4,7 +4,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { RequestCardData } from './RequestCardData';
 import { useState } from 'react';
-
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootDrawerNavParamList } from '../../router/Navigation';
 
 export interface RequestCardProps extends RequestCardData {
     distance?: number,
@@ -23,17 +25,27 @@ export default function RequestCard({
     timeGap }: RequestCardProps) {
 
     const maxDescriptionLines: number = 4;
+    const router = useNavigation<StackNavigationProp<RootDrawerNavParamList>>();
 
     const [textMoreThanMaxLines, setTextMoreThanMaxLines] = useState<boolean>(false);
     const [toggleMoreText, setToggleMoreText] = useState<boolean>(false);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     const handleTextLayoutChange = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
         setTextMoreThanMaxLines(event.nativeEvent.lines.length >= maxDescriptionLines);
     };
 
     const toggleMessage = () => {
-        console.log(id + poster.name)
+        router.navigate('Message', {
+            screen: 'ChatBox',
+            params: {
+                contact: {
+                    id: id,
+                    name: poster.name,
+                    avatar: poster.avatar
+                }
+            }
+        });
     };
 
     const timeGapToString = () => {
@@ -85,7 +97,7 @@ export default function RequestCard({
                 </TouchableWithoutFeedback>
             </Modal>
 
-            <TouchableOpacity style={styles.container} onLongPress={() => setModalVisible(true)}>
+            <TouchableOpacity style={styles.container} onLongPress={() => setModalVisible(!modalVisible)}>
                 <HStack m={4} spacing={6}>
                     <View>
                         <Avatar image={{ uri: poster.avatar }} label={poster.name} autoColor />

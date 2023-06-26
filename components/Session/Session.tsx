@@ -6,7 +6,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { SessionData } from './Session.d';
 import { HStack, VStack, Avatar, Badge, Divider } from '@react-native-material/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootNavParamList } from '../../router/Navigation';
+import { MessageStackNavParamList } from '../../router/Navigation';
 
 export default function Session({
     contact: {
@@ -22,7 +22,7 @@ export default function Session({
 }: SessionData) {
 
     const swipeableRef = useRef<Swipeable>(null);
-    const router = useNavigation<StackNavigationProp<RootNavParamList>>();
+    const router = useNavigation<StackNavigationProp<MessageStackNavParamList>>();
 
     const renderRightAction = (text: string, color: string, x: number, progress: Animated.AnimatedInterpolation<string | number>) => {
         const trans = progress.interpolate({

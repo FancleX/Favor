@@ -3,7 +3,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootNavParamList } from '../../router/Navigation';
+import { RootDrawerNavParamList } from '../../router/Navigation';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { useState } from 'react';
 
@@ -21,7 +21,7 @@ export default function Header({
     },
 }: Props) {
 
-    const router = useNavigation<StackNavigationProp<RootNavParamList>>();
+    const router = useNavigation<StackNavigationProp<RootDrawerNavParamList>>();
     const [leftIconPress, setLeftIconPress] = useState<boolean>(false);
     const [rightIconPress, setRightIconPress] = useState<boolean>(false);
 

@@ -1,12 +1,19 @@
 import { CategoryType } from "../components/Category/Category";
+import { NavigatorScreenParams } from '@react-navigation/native';
 
-export type RootNavParamList = {
+export type RootDrawerNavParamList = {
     Account: undefined,
-    Category: undefined,
-    Home: undefined,
-    Message: undefined,
+    Home: NavigatorScreenParams<HomeStackNavParamList>,
+    Message: NavigatorScreenParams<MessageStackNavParamList>,
     Post: undefined,
+}
+
+export type HomeStackNavParamList = {
+    Category: undefined,
     Request: { categoryType: CategoryType },
+}
+
+export type MessageStackNavParamList = {
     MessageBox: undefined,
     ChatBox: { contact: { name: string, id: string, avatar?: string } },
 }

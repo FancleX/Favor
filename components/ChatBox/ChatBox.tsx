@@ -1,15 +1,15 @@
 import { useEffect, useCallback, useState } from 'react';
-import { View, Text, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Message } from '../../dev/Dummy';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootNavParamList } from '../../router/Navigation';
+import { MessageStackNavParamList } from '../../router/Navigation';
 import Header from './Header';
 import { FlatList } from 'react-native-gesture-handler';
 import MessageInput from './MessageInput';
 import MessageBox from './MessageBox';
 import { ChatMessage } from './ChatBox.d';
 
-interface Props extends StackScreenProps<RootNavParamList, 'ChatBox'> { }
+interface Props extends StackScreenProps<MessageStackNavParamList, 'ChatBox'> { }
 
 export default function ChatBox({ route }: Props) {
 
@@ -21,6 +21,7 @@ export default function ChatBox({ route }: Props) {
     const myName = 'abc';
 
     const [chatHistory, setChatHistory] = useState<[string, ChatMessage[]][]>([]);
+    const [chatMap, setChatMap] = useState<Map<string, ChatMessage[]>>(new Map());
 
     const toShortDate = (date: Date) => {
         return date.toLocaleDateString('us-EN', { month: 'short', day: '2-digit' });
@@ -33,16 +34,13 @@ export default function ChatBox({ route }: Props) {
 
         Message.chatHistoryJohn.forEach((chat) => {
             const chatDate = toShortDate(chat.timestamp);
-            let collection = group.get(chatDate);
-
-            if (collection === undefined) {
-                collection = [];
-            }
+            let collection = group.get(chatDate) ?? [];
 
             collection.push(chat);
             group.set(chatDate, collection);
         });
 
+        setChatMap(group);
         setChatHistory(Array.from(group));
     }, [Message.chatHistoryJohn]);
 
@@ -55,6 +53,21 @@ export default function ChatBox({ route }: Props) {
 
     const handleMessageSend = async (text: string) => {
         console.log(text)
+
+        const time = new Date();
+
+        // send to server
+        const message: ChatMessage = { id: '106', content: text, isRead: true, isHost: true, timestamp: time };
+
+        // update locally
+        const current = toShortDate(time);
+        const collection = chatMap.get(current) ?? [];
+
+        collection.push(message);
+
+        chatMap.set(current, collection);
+
+        setChatHistory(Array.from(chatMap));
     }
 
     return (
@@ -83,6 +96,8 @@ export default function ChatBox({ route }: Props) {
                     </View>
                 )}
                 keyExtractor={(item) => item[0]}
+                showsVerticalScrollIndicator={false}
+                inverted
             />
 
             <MessageInput onSend={handleMessageSend} />
@@ -102,7 +117,8 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         backgroundColor: '#e0e0de',
-        padding: 10
+        padding: 10,
+        flexDirection: 'column-reverse'
     },
     dateText: {
         alignSelf: 'center',

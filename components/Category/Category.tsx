@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootNavParamList } from '../../router/Navigation';
+import { HomeStackNavParamList } from '../../router/Navigation';
 import { CategoryItem, CategoryType } from './Category.d';
 import { SearchBar } from '../SearchBar';
 import Toast from 'react-native-root-toast';
@@ -38,7 +38,7 @@ const categories: CategoryItem[] = [
 export default function Category() {
 
     const groupedCategoryItems: CategoryItem[][] = [];
-    const router = useNavigation<StackNavigationProp<RootNavParamList>>();
+    const router = useNavigation<StackNavigationProp<HomeStackNavParamList>>();
 
     useEffect(() => {
         for (let i = 0; i < categories.length; i += 2) {

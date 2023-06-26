@@ -1,6 +1,6 @@
-import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootNavParamList } from '../../router/Navigation';
+import { HomeStackNavParamList } from '../../router/Navigation';
 import RequestFilter, { FilterOptions } from './RequestFilter';
 import { useEffect, useState, useCallback } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
@@ -12,7 +12,7 @@ import * as Location from 'expo-location';
 import Toast from 'react-native-root-toast';
 import { SearchBar } from '../SearchBar';
 
-interface Props extends StackScreenProps<RootNavParamList, 'Request'> { }
+interface Props extends StackScreenProps<HomeStackNavParamList, 'Request'> { }
 
 export default function Request({ route }: Props) {
     const { categoryType } = route.params;

@@ -12,10 +12,10 @@ import Account from './screens/Account';
 import { CustomDrawer } from './components/CustomDrawer';
 import Post from './screens/Post';
 import { MessageDrawer } from './dev/Dummy';
-import { RootNavParamList } from './router/Navigation';
+import { RootDrawerNavParamList } from './router/Navigation';
 import { RootSiblingParent } from 'react-native-root-siblings';
 
-const Drawer = createDrawerNavigator<RootNavParamList>();
+const Drawer = createDrawerNavigator<RootDrawerNavParamList>();
 
 export default function App() {
 
