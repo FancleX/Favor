@@ -1,10 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Divider } from '@rneui/themed';
+import { useState } from 'react';
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
+
+    const [login, setLogin] = useState<boolean>(false);
+
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -23,10 +27,14 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
             <Divider inset={true} insetType="left" />
 
             <View style={styles.bottom}>
-                <TouchableOpacity>
-                    <View style={styles.signOutButton}>
-                        <Ionicons name="exit-outline" size={22} />
-                        <Text style={styles.signOutText}>Sign Out</Text>
+                <TouchableOpacity onPress={() => setLogin(!login)}>
+                    <View style={styles.signInOutButton}>
+                        {
+                            login ?
+                                <MaterialCommunityIcons name='logout-variant' size={22} /> :
+                                <MaterialCommunityIcons name='login-variant' size={22} />
+                        }
+                        <Text style={styles.signInOutText}>{`Sign ${login ? 'Out' : 'In'}`}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -55,11 +63,11 @@ const styles = StyleSheet.create({
     bottom: {
         padding: 20
     },
-    signOutButton: {
+    signInOutButton: {
         flexDirection: 'row',
         alignItems: 'center'
     },
-    signOutText: {
+    signInOutText: {
         paddingLeft: 25
     }
 });
