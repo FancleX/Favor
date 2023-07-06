@@ -3,7 +3,7 @@ import { Avatar, HStack, VStack } from '@react-native-material/core';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { RequestCardData } from './RequestCardData';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootDrawerNavParamList } from '../../router/Navigation';
@@ -31,9 +31,10 @@ export default function RequestCard({
     const [toggleMoreText, setToggleMoreText] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-    const handleTextLayoutChange = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
+    const handleTextLayoutChange = useCallback((event: NativeSyntheticEvent<TextLayoutEventData>) => {
         setTextMoreThanMaxLines(event.nativeEvent.lines.length >= maxDescriptionLines);
-    };
+    }, []);
+
 
     const toggleMessage = () => {
         router.navigate('Message', {
