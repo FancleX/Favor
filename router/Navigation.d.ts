@@ -5,7 +5,7 @@ export type RootDrawerNavParamList = {
     Account: undefined,
     Home: NavigatorScreenParams<HomeStackNavParamList>,
     Message: NavigatorScreenParams<MessageStackNavParamList>,
-    Post: undefined,
+    Post: NavigatorScreenParams<PostStackNavParamList>,
 }
 
 export type HomeStackNavParamList = {
@@ -16,4 +16,9 @@ export type HomeStackNavParamList = {
 export type MessageStackNavParamList = {
     MessageBox: undefined,
     ChatBox: { contact: { name: string, id: string, avatar?: string } },
+}
+
+export type PostStackNavParamList = {
+    PostForm: undefined,
+    StatusPage: { status: 'Success' | 'Error', message: string }
 }

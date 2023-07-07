@@ -3,7 +3,7 @@ export type RequestCardData = {
     poster: {
         name: string,
         avatar?: string,
-        phone?: number,
+        phone?: string,
         email: string
     },
     category: CategoryType,

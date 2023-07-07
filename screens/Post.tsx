@@ -1,18 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { PostStackNavParamList } from '../router/Navigation';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { PostForm } from '../components/PostForm';
+
+const Stack = createStackNavigator<PostStackNavParamList>();
 
 export default function Post() {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <View style={styles.container}>
-                <Text>Post</Text>
-            </View>
+            <Stack.Navigator
+                initialRouteName='PostForm'
+                screenOptions={{ headerShown: false }}
+            >
+
+                <Stack.Screen name='PostForm' component={PostForm} />
+                {/* <Stack.Screen name='StatusPage' component={StatusPage} /> */}
+            </Stack.Navigator>
         </TouchableWithoutFeedback>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
