@@ -1,7 +1,6 @@
 import { Text, View } from 'react-native';
-import { FormEntity, FormType } from './PostForm.d';
+import { FormEntity, FormSubmitData, FormType } from './PostForm.d';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { RequestCardData } from '../Request';
 import { TextInput } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -9,7 +8,7 @@ const PhoneInputBox: React.FC<{
     label: string,
     autoSize: boolean,
     isOptional: boolean,
-    onVerified: Dispatch<SetStateAction<RequestCardData>>
+    onVerified: Dispatch<SetStateAction<FormSubmitData>>
 }> = ({
     label,
     autoSize,
@@ -82,7 +81,7 @@ const PhoneInputBox: React.FC<{
 
 
 interface Props extends FormEntity {
-    onVerified: Dispatch<SetStateAction<RequestCardData>>
+    onVerified: Dispatch<SetStateAction<FormSubmitData>>
 }
 
 export default function GeneralInputBox({

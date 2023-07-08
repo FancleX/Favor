@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text } from 'react-native';
-import { FormEntity, FormType } from './PostForm.d';
+import { FormEntity, FormSubmitData, FormType } from './PostForm.d';
 import { FlatList } from 'react-native-gesture-handler';
-import { RequestCardData } from '../Request';
 import { useCallback, useState } from 'react';
 import GeneralInputBox from './GeneralInputBox';
 import AddressInputBox from './AddressInputBox';
@@ -9,6 +8,7 @@ import DateInputBox from './DateInputBox';
 import CategorySelectBox from './CategorySelectBox';
 import { CategoryType } from '../Category';
 import { Spacer } from '@react-native-material/core';
+
 
 const forms: FormEntity[] = [
     {
@@ -57,15 +57,10 @@ const forms: FormEntity[] = [
 
 export default function PostForm() {
 
-    const [formData, setFormData] = useState<RequestCardData>({
-        id: '',
+    const [formData, setFormData] = useState<FormSubmitData>({
         // From user state
         poster: {
-            name: 'John',
-            avatar: 'https://learnopencv.com/wp-content/uploads/2021/04/image-15.png',
-            // changeable
-            phone: '123456789',
-            email: 'John@gmail.com'
+            userId: '',
         },
         category: CategoryType.BABYSITTING,
         address: {

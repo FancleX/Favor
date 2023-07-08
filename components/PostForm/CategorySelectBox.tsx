@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { CategoryType } from '../Category';
 import { Dispatch, SetStateAction } from 'react';
-import { RequestCardData } from '../Request';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { FormSubmitData } from './PostForm.d';
 
 interface Props {
-    onSelect: Dispatch<SetStateAction<RequestCardData>>
+    onSelect: Dispatch<SetStateAction<FormSubmitData>>
 }
 
 export default function CategorySelectBox({ onSelect }: Props) {
